@@ -1,16 +1,9 @@
 .cart {
-    /* border: 1px solid purple; */
     padding: 0 110px 250px 110px;
 }
 
-.cart > h2 {
-    font-weight: 700;
-    font-size: 32px;
-    margin: 77px 0;
-}
 .cartProduct {
     display: flex;
-    /* border: 1px solid green; */
     justify-content: space-between;
     margin: 52px 0;
 }
@@ -20,7 +13,11 @@
 }
 
 /* HEADER */
-
+.cart > h2 {
+    font-weight: 700;
+    font-size: 32px;
+    margin: 77px 0;
+}
 /* CART ITEM(S) */
 
 .cartProduct > div > h3 {
@@ -112,7 +109,6 @@
 .backFowBtns {
     position: relative;
     bottom: 44px;
-    /* left: 128px; */
     margin: 0 0 -28px 128px;
 }
 
