@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import Cart from './components/Cart';
+import Cart from './components/Cart';
 // import Category from './components/Category';
 import Overlay from './components/Overlay';
-import Product from './components/Product';
+// import Product from './components/Product';
 import './surface.css';
 import svg3 from './icons/svg3.svg';
 // import wheel from './icons/wheel.svg';
@@ -30,8 +30,8 @@ export default class App extends Component {
         
         <Overlay />
         {/* <Category /> */}
-        <Product />
-        {/* <Cart /> */}
+        {/* <Product /> */}
+        <Cart />
       </div>
     )
   }
