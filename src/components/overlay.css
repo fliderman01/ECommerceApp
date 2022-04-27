@@ -1,0 +1,142 @@
+aside {
+    border: 2px solid orange; /* dlete */
+    position: absolute;
+    left: 1043px;
+    top: 78px;
+    width: 325px;
+    padding: 32px 16px;
+    background-color: #FFFFFF;
+    z-index: 1;
+}
+
+/* TITLE */
+
+.title {
+    font-weight: 700;
+    font-size: 16px;
+    text-align: left;
+    margin-left: 3px; /* watch out */
+}
+
+/* PRODUCT DESCRIPTION */
+
+.productDescript {
+    display: flex;
+    margin-top: 42px;
+}
+
+.productDescript > div {
+    margin: 0 4px;
+}
+
+.productTitle {
+    line-height: 160%;
+}
+
+.productSize {
+    margin: 5px 0;
+}
+
+.productColor {
+    margin: 5px 0;
+}
+
+.amounts {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.itemNum {
+    font-weight: 500;
+}
+
+.priceLabel {
+    font-weight: 500;
+}
+
+.descriptionList > li {
+    display: inline;
+}
+
+.size > li > button {
+    width: 24px;
+    height: 24px;
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 6px 0 0;
+    color: #A6A6A6;
+}
+
+.size > li > button:hover {
+    background-color: #1D1F22;
+    border: 1px solid #1D1F22;
+    color: #FFFFFF;
+    cursor: pointer;;
+}
+
+.color > li > button {
+    width: 16px;
+    height: 16px;
+    margin: 0 9px 0 0;
+    border: none;
+}
+
+.amountBtn {
+    border: 1.5px solid #1D1F22;
+    width: 24px;
+    height: 24px;
+}
+
+.amountBtn:hover {
+    border: none;
+    background-color: #1D1F22;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+/* PRICE */
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 42px;
+}
+
+.totalPrice {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* BAG BUTTONS */
+
+.bag {
+    margin-top: 42px;
+}
+
+.bagBtn {
+    align-items: center;
+    /* padding: 16px 32px; */
+    width: 140px;
+    height: 43px;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    
+    background: #FFFFFF;
+    border: 1.5px solid #1D1F22;
+    color: #1D1F22;
+}
+
+.bagBtn:hover {
+    cursor: pointer;
+    background: #5ECE7B;
+    color: #FFFFFF;
+    border: none;
+}
+
+.view {
+    margin: 0 9px 0 0;
+}

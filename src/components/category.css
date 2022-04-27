@@ -1,0 +1,60 @@
+main {
+    border: 1px solid purple;
+    padding: 250px 100px 85px 100px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+section {
+    /* border: 1px solid brown; */
+    Width: 386px;
+    Height: 444px;
+    padding: 16px;
+    color: #1D1F22;
+    margin: 0 28px 110px 0;
+    background-color: #FFFFFF;
+}
+
+.outOfStock {
+    font-weight: 400;
+    font-size: 24px;
+    color: #8D8F9A;
+    position: relative;
+    left: 25.42%;
+    bottom: 44.24%;
+}
+
+.categoryPrice {
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+.cartBtn {
+    height: 52px;
+    width: 52px;
+    background: #5ECE7B;
+    border-radius: 100px;
+    border: none;
+    position: relative;
+    left: 290px;
+    bottom: 110px;
+    display: none;
+}
+
+/* make button appear on hover */
+/* section:hover + button {
+    display: block;
+    cursor: pointer;
+} */
+
+/* overlay */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 90px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(57, 55, 72, 0.22);
+  }

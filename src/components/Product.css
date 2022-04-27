@@ -1,0 +1,110 @@
+.Product {
+    display: flex;
+    /* border: 1px solid brown; */
+    margin: 80px 190px 190px 100px;
+}
+
+/* MINI-PICS */
+.miniPic {
+    margin: 0 48px 44px 0;
+}
+
+/* MAIN-PIC */
+
+/* DESCRIPTION */
+.productDescription {
+    padding: 0 0 0 100px;
+}
+
+.productDescription > ul > li {
+    display: inline;
+}
+
+.sizeBtn {
+    width: 63px;
+    height: 45px;
+    border: 1px solid #1D1F22;
+    margin: 7px 13px 23px 0;
+    font-size: 16px;
+}
+
+.sizeBtn:hover {
+    color: #ffffff;
+    background-color: #1D1F22;
+    cursor: pointer;
+}
+
+.sizeBtn:focus {
+    color: #ffffff;
+    background-color: #1D1F22;
+}
+
+.colBtn {
+    width: 32px;
+    height: 32px;
+    margin: 10px 7px 38px 0;
+    border: none;
+}
+
+.colBtn:hover {
+    cursor: pointer;
+    border: 1px solid green;    
+}
+
+.colBtn:focus {
+    border: 1px solid green;
+    width: 33px;
+    height: 33px;
+}
+
+.descrTitle {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 41px;
+    margin: 0 111px 34px 0;
+}
+
+.descrTitle::first-line {
+    font-weight: 600;
+}
+
+.colSize {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.itemPrice {
+    font-weight: 700;
+    font-size: 24px;
+    margin: 22px 0;
+}
+
+.addBtn {
+    padding: 16px 32px;
+    width: 292px;
+    height: 52px;
+    background: #5ECE7B;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    color: #FFFFFF;
+}
+
+.addBtn:hover {
+    cursor: pointer;
+}
+
+.addBtn:active {
+    position: relative;
+    top: 2px;
+    left: 2px;
+}
+
+.descripTxt {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 159.96%;
+    margin-top: 39px;
+}
