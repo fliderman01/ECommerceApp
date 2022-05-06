@@ -8,6 +8,10 @@
 .miniPic {
     margin: 0 48px 44px 0;
 }
+.miniPic:hover {
+    border: 1px solid #1D1F22;
+    cursor: pointer;
+}
 
 /* MAIN-PIC */
 
@@ -21,10 +25,11 @@
 }
 
 .sizeBtn {
-    width: 63px;
+    min-width: 63px;
+    padding: 0 9px;
     height: 45px;
     border: 1px solid #1D1F22;
-    margin: 7px 13px 23px 0;
+    margin: 7px 13px 12px 0;
     font-size: 16px;
 }
 
@@ -40,9 +45,10 @@
 }
 
 .colBtn {
-    width: 32px;
+    min-width: 32px;
+    padding: 0 9px;
     height: 32px;
-    margin: 10px 7px 38px 0;
+    margin: 10px 7px 20px 0;
     border: none;
 }
 
@@ -68,11 +74,19 @@
     font-weight: 600;
 }
 
+.priceSize{
+    margin-top: 22px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
 .colSize {
     font-weight: 700;
     font-size: 18px;
     line-height: 18px;
+    margin-top: 15px;
 }
+
 
 .itemPrice {
     font-weight: 700;

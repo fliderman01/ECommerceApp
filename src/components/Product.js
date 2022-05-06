@@ -7,9 +7,10 @@ import {
 
 export default class Product extends Component {
   render() {
+    // "huarache-x-stussy-le", "jacket-canada-goosee", "ps-5", "xbox-series-s", "apple-imac-2021", "apple-iphone-12-pro", "apple-airpods-pro", "apple-airtag"
     const PRODUCT_INFO = gql`
     query GetRates {
-      product(id: "ps-5"){
+      product(id: "huarache-x-stussy-le"){
         name
         gallery
         description
@@ -36,9 +37,8 @@ export default class Product extends Component {
   function ProductFunct() {
     const { loading, error, data } = useQuery(PRODUCT_INFO);
 
-    console.log(data, 'dattta')
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+    if (error) return <p>Error :( {console.log(error.message)}</p>;
 
     return <div className='Product'>
             <div>
@@ -51,24 +51,31 @@ export default class Product extends Component {
             </div>
             <div className='productDescription'>
               <p className='descrTitle'>{data.product.name}</p>
-              <p className='colSize'>SIZE:</p>
-              <ul>
-                <li><button className='sizeBtn'>XS</button></li>
-                <li><button className='sizeBtn'>S</button></li>
-                <li><button className='sizeBtn'>M</button></li>
-                <li><button className='sizeBtn'>L</button></li>
-              </ul>
-              <p className='colSize'>COLOR:</p>
-              <ul>
-                <li><button className='colBtn' style={{backgroundColor: 'orange'}}></button></li>
-                <li><button className='colBtn' style={{backgroundColor: 'orange'}}></button></li>
-                <li><button className='colBtn' style={{backgroundColor: 'orange'}}></button></li>
-              </ul>
-              <p className='colSize'>PRICE:</p>
+              {data.product.attributes.map(item=>(
+                <>
+                  <p className='colSize'>{item.name.toUpperCase()}:</p>
+                  <ul>
+                    {
+                      item.id === 'Color'
+                      ?
+                      item.items.map(val=>(
+                        <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
+                      ))
+                      :
+                      item.items.map(val=>(
+                        <li><button className='sizeBtn'>{val.displayValue}</button></li>
+                      ))
+                    }
+                  </ul>
+                </>
+              ))}
+              <p className='priceSize'>PRICE:</p>
               <p className='itemPrice'>{data.product.prices[0].currency.symbol}{data.product.prices[0].amount}</p>
               <button className='addBtn'>ADD TO CART</button>
               
-              <div className='descripTxt'>{data.product.description.slice(data.product.description.indexOf(">") + 1, data.product.description.lastIndexOf("<"))}</div>
+              <div className='descripTxt'>
+                <div dangerouslySetInnerHTML={{__html: data.product.description}} />
+              </div>
             </div>
           </div>
   }
