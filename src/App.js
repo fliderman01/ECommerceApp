@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Cart from './components/Cart';
+// import Cart from './components/Cart';
 // import Category from './components/Category';
 import Overlay from './components/Overlay';
 // import Product from './components/Product';
@@ -8,10 +8,12 @@ import svg3 from './icons/svg3.svg';
 // import wheel from './icons/wheel.svg';
 // make vector wheel if end up using it
 import Vector from './icons/Vector.svg';
+import TestClass from './TestClass';
 
 
 export default class App extends Component {
   render() {
+
     return (
       <div>
         <div className='surface'>
@@ -31,7 +33,8 @@ export default class App extends Component {
         <Overlay />
         {/* <Category /> */}
         {/* <Product /> */}
-        <Cart />
+        {/* <Cart /> */}
+        <TestClass />
       </div>
     )
   }
