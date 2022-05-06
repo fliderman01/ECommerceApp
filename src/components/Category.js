@@ -1,46 +1,62 @@
-import React, { Component } from 'react'
-import './category.css'
+import React, { Component } from 'react';
+import './category.css';
+import {
+  useQuery,
+  gql,
+} from '@apollo/client';
 
 export default class category extends Component {
   render() {
-    return (
-      <main>
-        <h2 className='categoryName'>Category Name</h2>
+    const PRODUCT_CATEGORIES = gql`
+    query GetRates {
+      category{
+        name
+        products{
+          id
+          name
+          inStock
+          gallery
+          prices{
+            currency{
+              symbol
+            }
+            amount
+          }
+        }
+      }
+    }
+  `;
+  function CategoryFunct() {
+    const { loading, error, data } = useQuery(PRODUCT_CATEGORIES);
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error :(</p>;
+
+    return <main>
+              {/* transform to upperCase from css */}
+              <h2 className='categoryName'>{data.category.name}</h2>
 
 
-        {/* display initial if that btn is clicked */}
-        <div className='overlay' style={{display: 'none'}}></div>
-        
-        <section>
-          <img src='http://res.heraldm.com/phpwas/restmb_idxmake.php?idx=621&simg=/content/image/2021/02/23/20210223000893_0.jpg' alt='sunmi' style={{width: '356px', height: '338px', opacity: '1'}}/>
-          <p className='outOfStock' style={{display: 'initial'}}>OUT OF STOCK</p>
-          <p style={{opacity: '1'}}>Apollo Running Short</p>
-          <p style={{opacity: '1'}} className='categoryPrice'>$50.00</p>
-          <button className='cartBtn'>img</button>
-        </section>
+              {/* display initial if that btn is clicked */}
+              <div className='overlay' style={{display: 'none'}}></div>
 
-        <section>
-          <img src='http://res.heraldm.com/phpwas/restmb_idxmake.php?idx=621&simg=/content/image/2021/02/23/20210223000893_0.jpg' alt='sunmi' style={{width: '356px', height: '338px', opacity: '1'}}/>
-          <p className='outOfStock' style={{display: 'initial'}}>OUT OF STOCK</p>
-          <p style={{opacity: '1'}}>Apollo Running Short</p>
-          <p style={{opacity: '1'}} className='categoryPrice'>$50.00</p>
-        </section>
+              {data.category.products.map(({id, name, inStock, gallery, prices})=>(
+                <section>
+                  <img src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5'}}/>
+                  <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
+                  <p style={{opacity: inStock ? '1' : '.5'}}>{name}</p>
+                  <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>$50.00</p>
+                  <button className='cartBtn'>img</button>
+                </section>
+              ))}
+              
 
-        <section>
-          <img src='http://res.heraldm.com/phpwas/restmb_idxmake.php?idx=621&simg=/content/image/2021/02/23/20210223000893_0.jpg' alt='sunmi' style={{width: '356px', height: '338px', opacity: '1'}}/>
-          <p className='outOfStock' style={{display: 'initial'}}>OUT OF STOCK</p>
-          <p style={{opacity: '1'}}>Apollo Running Short</p>
-          <p style={{opacity: '1'}} className='categoryPrice'>$50.00</p>
-        </section>
-
-        <section>
-          <img src='http://res.heraldm.com/phpwas/restmb_idxmake.php?idx=621&simg=/content/image/2021/02/23/20210223000893_0.jpg' alt='sunmi' style={{width: '356px', height: '338px', opacity: '1'}}/>
-          <p className='outOfStock' style={{display: 'initial'}}>OUT OF STOCK</p>
-          <p style={{opacity: '1'}}>Apollo Running Short</p>
-          <p style={{opacity: '1'}} className='categoryPrice'>$50.00</p>
-        </section>
-
-      </main>
+            </main>
+  }
+  return (
+    <>
+      <CategoryFunct />
+    </>
     )
   }
 }

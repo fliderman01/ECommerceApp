@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
 // delete afther complete fetch
+import React, { Component } from 'react';
 import {
   useQuery,
   gql,
