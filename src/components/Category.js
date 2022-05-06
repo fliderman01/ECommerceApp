@@ -33,7 +33,6 @@ export default class category extends Component {
     if (error) return <p>Error :(</p>;
 
     return <main>
-              {/* transform to upperCase from css */}
               <h2 className='categoryName'>{data.category.name}</h2>
 
 
