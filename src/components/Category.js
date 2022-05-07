@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import './category.css';
+import shopping from '../icons/shoppWhite.png'
 import {
   useQuery,
   gql,
@@ -16,6 +17,7 @@ export default class category extends Component {
           name
           inStock
           gallery
+          category
           prices{
             currency{
               symbol
@@ -28,6 +30,7 @@ export default class category extends Component {
   `;
   function CategoryFunct() {
     const { loading, error, data } = useQuery(PRODUCT_CATEGORIES);
+    const [showBtn, setShowBtn] = useState(false);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
@@ -39,13 +42,13 @@ export default class category extends Component {
         {/* display initial if that btn is clicked */}
         <div className='overlay' style={{display: 'none'}}></div>
 
-          {data.category.products.map(({id, name, inStock, gallery, prices})=>(
+          {data.category.products.map(({id, name, inStock, gallery, category, prices})=>(
             <section>
-              <img src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}/>
+                <img onMouseOver={()=>setShowBtn(true)} onMouseOut={()=>setShowBtn(false)} src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}/>
                 <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
                 <p style={{opacity: inStock ? '1' : '.5'}} className='categoryTitle'>{name}</p>
                 <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>{prices[0].currency.symbol}{prices[0].amount}</p>
-                <button className='cartBtn'>img</button>
+                <button className='cartBtn' style={{display: showBtn ? 'initial' : 'none'}}><img style={{width: '54px'}} src={shopping} alt='shopping wheel'/></button>
             </section>
              ))}
       </div>

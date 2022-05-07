@@ -34,9 +34,10 @@ export default class Product extends Component {
       }
     }
   `;
-  function ProductFunct() {
+  function ProductFunct({currency}) {
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     const [mainPic, setMainPic] = useState('');
+    console.log(currency, 'bmv');
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
