@@ -1,8 +1,16 @@
 main {
     border: 1px solid purple;
-    padding: 250px 100px 85px 100px;
+    padding: 0px 100px 85px 100px;
+}
+.categoryContainer{
     display: flex;
     flex-wrap: wrap;
+}
+.categoryName{
+    margin: 100px 0 111px 0;
+}
+.categoryName::first-letter{
+    text-transform: uppercase;
 }
 
 section {
@@ -24,9 +32,13 @@ section {
     bottom: 44.24%;
 }
 
+.categoryTitle{
+    margin-top: 29px;
+}
+
 .categoryPrice {
     font-weight: 500;
-    margin-top: 8px;
+    margin: 8px 0;
 }
 
 .cartBtn {

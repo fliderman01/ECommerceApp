@@ -32,25 +32,26 @@ export default class category extends Component {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :(</p>;
 
-    return <main>
-              <h2 className='categoryName'>{data.category.name}</h2>
+    return (
+      <main>
+      <h2 className='categoryName'>{data.category.name}</h2>
+      <div className='categoryContainer'>
+        {/* display initial if that btn is clicked */}
+        <div className='overlay' style={{display: 'none'}}></div>
 
+          {data.category.products.map(({id, name, inStock, gallery, prices})=>(
+            <section>
+              <img src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}/>
+                <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
+                <p style={{opacity: inStock ? '1' : '.5'}} className='categoryTitle'>{name}</p>
+                <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>{prices[0].currency.symbol}{prices[0].amount}</p>
+                <button className='cartBtn'>img</button>
+            </section>
+             ))}
+      </div>
 
-              {/* display initial if that btn is clicked */}
-              <div className='overlay' style={{display: 'none'}}></div>
-
-              {data.category.products.map(({id, name, inStock, gallery, prices})=>(
-                <section>
-                  <img src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5'}}/>
-                  <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
-                  <p style={{opacity: inStock ? '1' : '.5'}}>{name}</p>
-                  <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>$50.00</p>
-                  <button className='cartBtn'>img</button>
-                </section>
-              ))}
-              
-
-            </main>
+ 
+      </main>)
   }
   return (
     <>

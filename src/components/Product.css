@@ -5,6 +5,9 @@
 }
 
 /* MINI-PICS */
+.miniContainer {
+    max-width: 244px;
+}
 .miniPic {
     margin: 0 48px 44px 0;
 }
