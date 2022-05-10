@@ -19,23 +19,30 @@ export default class App extends Component {
     super(props)
   
     this.state = {
-       msg:''
+       msg:'',
+       currencySwitcher:0
     }
   };
-
+  // change category
   categInfo = (Data) => {
     this.setState({msg: Data})
-};
+  };
+  // change currency
+  currencySwitch = (Data) => {
+    this.setState({currencySwitcher: Data})
+  };
 
   render(props) {
-    function SiteHeader(props) {
-      // const [categ, setCateg] = useState('all');
-      
-      const sendData = (info) => {
-        props.categInfo(info)
-      }
+
+    function SiteHeader(props) {      
       // category filter
-      // console.log(categ, 'vvvvvvv');
+      const sendData = (info) => {
+        props.categInfo(info);
+      }
+      // currency switcher
+      const sendSwitchData = (info) => {
+        props.currencySwitch(info)
+      }
 
       const CATEG_CURRENCIES = gql`
         query GetRates {
@@ -74,7 +81,7 @@ export default class App extends Component {
                 <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
                   <ul>
                     {data.currencies.map(({label, symbol}, index)=>(
-                      <li key={label} onClick={()=>{setCurrency(index); setShowCurrency(true);}} >{symbol} {label}</li>
+                      <li key={label} onClick={()=>{setCurrency(index); setShowCurrency(true); sendSwitchData(index);}} >{symbol} {label}</li>
                     ))}
                   </ul>
                 </div>
@@ -86,11 +93,12 @@ export default class App extends Component {
     return (
       <div>
 
-        <SiteHeader currency={this.props.currency} categ={this.state.msg} categInfo={this.categInfo} />
+        <SiteHeader currency={this.props.currency} categInfo={this.categInfo} currencySwitch={this.currencySwitch} />
+        {console.log(this.props.currency)}
         <div className='overlay'></div>
 
         <Overlay />
-        <Category categ={this.state.msg} />
+        <Category categ={this.state.msg} currencySwitcher={this.state.currencySwitcher} />
         {/* <Product currency={this.props.currency}/> */}
         {/* <Cart /> */}
         {/* <TestClass /> */}

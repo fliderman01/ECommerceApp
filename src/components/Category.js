@@ -9,8 +9,8 @@ import {
 export default class category extends Component {
   render(props) {
     
-
     function CategoryFunct(props) {
+      // console.log(props.currencySwitcher, 'currency')
 
     const PRODUCT_CATEGORIES = gql`
     query GetRates {
@@ -50,7 +50,7 @@ export default class category extends Component {
                 <img onMouseOver={()=>setShowBtn(true)} onMouseOut={()=>setShowBtn(false)} src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}/>
                 <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
                 <p style={{opacity: inStock ? '1' : '.5'}} className='categoryTitle'>{name}</p>
-                <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>{prices[0].currency.symbol}{prices[0].amount}</p>
+                <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>{prices[props.currencySwitcher].currency.symbol}{prices[props.currencySwitcher].amount}</p>
                 <button className='cartBtn' style={{display: showBtn ? 'initial' : 'none'}}><img style={{width: '54px'}} src={shopping} alt='shopping wheel'/></button>
             </section>
              ))}
@@ -61,7 +61,7 @@ export default class category extends Component {
   }
   return (
     <>
-      <CategoryFunct categ={this.props.categ}/>
+      <CategoryFunct categ={this.props.categ} currencySwitcher={this.props.currencySwitcher}/>
     </>
     )
   }
