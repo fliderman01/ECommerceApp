@@ -15,12 +15,27 @@ import {
 } from '@apollo/client';
 
 export default class App extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       msg:''
+    }
+  };
+
+  categInfo = (Data) => {
+    this.setState({msg: Data})
+};
 
   render(props) {
     function SiteHeader(props) {
+      // const [categ, setCateg] = useState('all');
+      
+      const sendData = (info) => {
+        props.categInfo(info)
+      }
       // category filter
-      const [categ, setCateg] = useState('all');
-      console.log(categ, 'vvvvvvv');
+      // console.log(categ, 'vvvvvvv');
 
       const CATEG_CURRENCIES = gql`
         query GetRates {
@@ -50,7 +65,7 @@ export default class App extends Component {
       return <div className='surface'>
               <div className='category'>
                 {data.categories.map(({name})=>(
-                  <p onClick={()=>setCateg(name)} key={name}>{name}</p>
+                  <p onClick={()=>{sendData(name);}} key={name}>{name}</p>
                 ))}
               </div>
               <img src={svg3} alt='Green rectangle with an arrow inside' />
@@ -71,12 +86,11 @@ export default class App extends Component {
     return (
       <div>
 
-        <SiteHeader currency={this.props.currency} categ={this.props.categ} />
-        {console.log(this.props.categ, 'kata')}
+        <SiteHeader currency={this.props.currency} categ={this.state.msg} categInfo={this.categInfo} />
         <div className='overlay'></div>
 
         <Overlay />
-        <Category categ={this.props.categ} />
+        <Category categ={this.state.msg} />
         {/* <Product currency={this.props.currency}/> */}
         {/* <Cart /> */}
         {/* <TestClass /> */}

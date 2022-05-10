@@ -8,12 +8,13 @@ import {
 
 export default class category extends Component {
   render(props) {
-    console.log(this.props.categ, 'categ in class')
-    function CategoryFunct() {
+    
+
+    function CategoryFunct(props) {
 
     const PRODUCT_CATEGORIES = gql`
     query GetRates {
-      category(input: { title: "all" }) {
+      category(input: { title: "${props.categ}" }) {
         name
         products {
           id
@@ -60,7 +61,7 @@ export default class category extends Component {
   }
   return (
     <>
-      <CategoryFunct />
+      <CategoryFunct categ={this.props.categ}/>
     </>
     )
   }
