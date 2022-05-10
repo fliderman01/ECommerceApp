@@ -35,6 +35,7 @@ export default class Product extends Component {
     }
   `;
   function ProductFunct({currency}) {
+    // const [attrBtn, setAttrBtn] = useState('')
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     const [mainPic, setMainPic] = useState('');
     console.log(currency, 'bmv');
@@ -61,11 +62,13 @@ export default class Product extends Component {
                       item.id === 'Color'
                       ?
                       item.items.map(val=>(
-                        <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
+                        // <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
+                        <li><label className='radioLabel' style={{backgroundColor: val.value}}><input className='colBtn' type='radio' name='color' /></label></li>
                       ))
                       :
                       item.items.map(val=>(
-                        <li><button className='sizeBtn'>{val.displayValue}</button></li>
+                        // <li><button className='sizeBtn'>{val.displayValue}</button></li>
+                        <li><input className='sizeBtn' type='radio' name='attrChoice' value={val.displayValue} /></li>
                       ))
                     }
                   </ul>

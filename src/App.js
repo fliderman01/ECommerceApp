@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 // import Cart from './components/Cart';
 import Category from './components/Category';
 import Overlay from './components/Overlay';
@@ -16,33 +16,41 @@ import {
 
 export default class App extends Component {
 
-  render() {
-    const CATEG_CURRENCIES = gql`
-      query GetRates {
-        categories{
-          name
-        }
-        currencies{
-          label
-          symbol
-        }
-      }
-    `;
-
+  render(props) {
     function SiteHeader(props) {
+      // category filter
+      const [categ, setCateg] = useState('all');
+      console.log(categ, 'vvvvvvv');
+
+      const CATEG_CURRENCIES = gql`
+        query GetRates {
+          categories{
+            name
+          }
+          currencies{
+            label
+            symbol
+          }
+        }
+      `;
       const { loading, error, data } = useQuery(CATEG_CURRENCIES);
       // switch currency
-      const [currency, setCurrency] = useState(0);
+      const [currency, setCurrency] = useState(() => {
+        const saved = localStorage.getItem('currency');
+        return saved ? JSON.parse(saved) : 0;
+      });
+      useEffect(() => {
+        localStorage.setItem('currency', JSON.stringify(currency));
+      }, [currency]);
       // show/hide currency switcher
       const [showCurrency, setShowCurrency] = useState(true);
-      console.log(showCurrency, 'porshe');
 
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       return <div className='surface'>
               <div className='category'>
                 {data.categories.map(({name})=>(
-                  <p key={name}>{name}</p>
+                  <p onClick={()=>setCateg(name)} key={name}>{name}</p>
                 ))}
               </div>
               <img src={svg3} alt='Green rectangle with an arrow inside' />
@@ -51,7 +59,7 @@ export default class App extends Component {
                 <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
                   <ul>
                     {data.currencies.map(({label, symbol}, index)=>(
-                      <li onClick={()=>{setCurrency(index); setShowCurrency(true)}} >{symbol} {label}</li>
+                      <li key={label} onClick={()=>{setCurrency(index); setShowCurrency(true);}} >{symbol} {label}</li>
                     ))}
                   </ul>
                 </div>
@@ -63,12 +71,12 @@ export default class App extends Component {
     return (
       <div>
 
-        <SiteHeader currency={this.props.currency} />
-        
+        <SiteHeader currency={this.props.currency} categ={this.props.categ} />
+        {console.log(this.props.categ, 'kata')}
         <div className='overlay'></div>
 
         <Overlay />
-        <Category />
+        <Category categ={this.props.categ} />
         {/* <Product currency={this.props.currency}/> */}
         {/* <Cart /> */}
         {/* <TestClass /> */}

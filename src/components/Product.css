@@ -47,7 +47,7 @@
     background-color: #1D1F22;
 }
 
-.colBtn {
+/* .colBtn {
     min-width: 32px;
     padding: 0 9px;
     height: 32px;
@@ -64,6 +64,23 @@
     border: 1px solid green;
     width: 33px;
     height: 33px;
+} */
+
+.colBtn {
+    display: none;
+}
+
+.radioLabel {
+    /* background-color: #5ECE7B; */
+    /* min-width: 32px;
+    height: 32px; */
+    padding: 8px 18px;
+    margin: 10px 7px 20px 0;
+    border: none;
+    cursor: pointer;
+}
+.colBtn:checked + .radioLabel{
+    border: 1px solid #5ECE7B;
 }
 
 .descrTitle {
