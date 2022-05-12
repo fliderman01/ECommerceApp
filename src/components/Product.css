@@ -17,10 +17,13 @@
 }
 
 /* MAIN-PIC */
+.mainPic{
+    padding: 0 100px 0 0;
+}
 
 /* DESCRIPTION */
 .productDescription {
-    padding: 0 0 0 100px;
+    padding: 0 0 0 0px;
 }
 
 .productDescription > ul > li {

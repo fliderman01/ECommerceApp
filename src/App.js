@@ -1,8 +1,8 @@
 import React, { Component, useState, useEffect } from 'react';
 // import Cart from './components/Cart';
-import Category from './components/Category';
+// import Category from './components/Category';
 import Overlay from './components/Overlay';
-// import Product from './components/Product';
+import Product from './components/Product';
 import './app.css';
 import svg3 from './icons/svg3.svg';
 import vectorUp from './icons/VectorUp.png';
@@ -32,7 +32,7 @@ export default class App extends Component {
     this.setState({currencySwitcher: Data})
   };
 
-  render(props) {
+  render() {
 
     function SiteHeader(props) {      
       // category filter
@@ -98,8 +98,8 @@ export default class App extends Component {
         <div className='overlay'></div>
 
         <Overlay />
-        <Category categ={this.state.msg} currencySwitcher={this.state.currencySwitcher} />
-        {/* <Product currency={this.props.currency}/> */}
+        {/* <Category categ={this.state.msg} currencySwitcher={this.state.currencySwitcher} /> */}
+        <Product currencySwitcher={this.state.currencySwitcher}/>
         {/* <Cart /> */}
         {/* <TestClass /> */}
       </div>
