@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-// import Cart from './components/Cart';
+import Cart from './components/Cart';
 // import Category from './components/Category';
 import Overlay from './components/Overlay';
 import Product from './components/Product';
@@ -78,10 +78,11 @@ export default class App extends Component {
               <img src={svg3} alt='Green rectangle with an arrow inside' />
               <div className='actions'>
                 <span className='currencySwitch' onClick={()=>setShowCurrency(!showCurrency)}>{data.currencies[currency].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
+                {console.log(currency, 'map')}
                 <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
                   <ul>
                     {data.currencies.map(({label, symbol}, index)=>(
-                      <li key={label} onClick={()=>{setCurrency(index); setShowCurrency(true); sendSwitchData(index);}} >{symbol} {label}</li>
+                      <li key={index} onClick={()=>{setCurrency(index); setShowCurrency(true); sendSwitchData(index);}} >{symbol} {label}</li>
                     ))}
                   </ul>
                 </div>
@@ -94,13 +95,12 @@ export default class App extends Component {
       <div>
 
         <SiteHeader currency={this.props.currency} categInfo={this.categInfo} currencySwitch={this.currencySwitch} />
-        {console.log(this.props.currency)}
         <div className='overlay'></div>
 
         <Overlay />
         {/* <Category categ={this.state.msg} currencySwitcher={this.state.currencySwitcher} /> */}
         <Product currencySwitcher={this.state.currencySwitcher}/>
-        {/* <Cart /> */}
+        <Cart />
         {/* <TestClass /> */}
       </div>
     )

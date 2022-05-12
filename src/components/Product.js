@@ -7,11 +7,12 @@ import {
 
 export default class Product extends Component {
   render() {
-    console.log(this.props.currencySwitcher, 'Mercedez')
+    // console.log(this.props.currencySwitcher, 'Mercedez')
     // "huarache-x-stussy-le", "jacket-canada-goosee", "ps-5", "xbox-series-s", "apple-imac-2021", "apple-iphone-12-pro", "apple-airpods-pro", "apple-airtag"
     const PRODUCT_INFO = gql`
     query GetRates {
       product(id: "ps-5"){
+        id
         name
         gallery
         description
@@ -39,6 +40,8 @@ export default class Product extends Component {
     // const [attrBtn, setAttrBtn] = useState('')
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     const [mainPic, setMainPic] = useState('');
+    const [cartData, setCartData] = useState([]);
+    console.log(cartData, 'info')
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
@@ -76,7 +79,14 @@ export default class Product extends Component {
               ))}
               <p className='priceSize'>PRICE:</p>
               <p className='itemPrice'>{data.product.prices[currencySwitcher].currency.symbol}{data.product.prices[currencySwitcher].amount}</p>
-              <button className='addBtn'>ADD TO CART</button>
+              <button className='addBtn' onClick={
+                ()=>{
+                  setCartData([...cartData, {
+                    id: data.product.id,
+                    quantity: 1
+                  }])
+                }
+              }>ADD TO CART</button>
               
               <div className='descripTxt'>
                 <div dangerouslySetInnerHTML={{__html: data.product.description}} />
