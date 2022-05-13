@@ -101,7 +101,6 @@ export default class App extends Component {
         {/* <Category categ={this.state.msg} currencySwitcher={this.state.currencySwitcher} /> */}
         <Product currencySwitcher={this.state.currencySwitcher}/>
         <Cart />
-        {/* <TestClass /> */}
       </div>
     )
   }
