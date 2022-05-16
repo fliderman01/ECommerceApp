@@ -83,7 +83,12 @@ export class CartItems extends Component {
                       :
                       item.items.map(val=>(
                         // <li><button className='sizeBtn'>{val.displayValue}</button></li>
-                        <li key={val.id}><label className='sizeLabel'><input className='radioInpBtn' type='radio' name='attrChoice' value={val.displayValue} />{val.displayValue}</label></li>
+                        <li key={val.id}>
+                          <label className='sizeLabel'>
+                            <input className='radioInpBtn' type='radio' name='attrChoice'/>
+                            {val.displayValue}
+                          </label>
+                        </li>
                       ))
                     }
                   </ul>

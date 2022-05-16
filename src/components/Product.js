@@ -66,12 +66,21 @@ export default class Product extends Component {
                       ?
                       item.items.map(val=>(
                         // <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
-                        <li key={val.value}><label className='radioLabel' style={{backgroundColor: val.value}}><input className='colBtn' type='radio' name='color' /></label></li>
+                        <li key={val.value}>
+                          <label className='radioLabel' style={{backgroundColor: val.value}}>
+                            <input className='colBtn' type='radio' name='color' />4
+                          </label>
+                        </li>
                       ))
                       :
                       item.items.map(val=>(
                         // <li><button className='sizeBtn'>{val.displayValue}</button></li>
-                        <li key={val.value}><input className='sizeBtn' type='radio' name='attrChoice' value={val.displayValue} /></li>
+                        <li key={val.value}>
+                          <label className='productLabel'>
+                            <input className='colBtn' type='radio' name='attrChoice' />
+                            {val.displayValue}
+                          </label>
+                        </li>
                       ))
                     }
                   </ul>

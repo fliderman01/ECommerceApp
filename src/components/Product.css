@@ -77,13 +77,29 @@
     /* background-color: #5ECE7B; */
     /* min-width: 32px;
     height: 32px; */
-    padding: 8px 18px;
+    /* padding: 8px 18px;
     margin: 10px 7px 20px 0;
     border: none;
-    cursor: pointer;
+    cursor: pointer; */
+    padding: 6px 12px;
+    margin-right: 9px;
+    color: rgba(0, 0, 0, 0);
 }
-.colBtn:checked + .radioLabel{
+.radioLabel:hover{
+    cursor: pointer;
     border: 1px solid #5ECE7B;
+}
+
+.productLabel{
+    border: 1px solid #1D1F22;
+    margin-right: 9px;
+    padding: 9px;
+}
+
+.productLabel:hover{
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #1D1F22;
 }
 
 .descrTitle {
@@ -98,7 +114,7 @@
 }
 
 .priceSize{
-    margin-top: 22px;
+    margin-top: 49px;
     font-weight: 700;
     font-size: 18px;
 }
@@ -107,7 +123,7 @@
     font-weight: 700;
     font-size: 18px;
     line-height: 18px;
-    margin-top: 15px;
+    margin: 35px 0 16px 0;
 }
 
 
