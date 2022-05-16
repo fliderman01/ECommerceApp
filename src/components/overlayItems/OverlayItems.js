@@ -9,7 +9,7 @@ export class OverlayItems extends Component {
   render() {
     const PRODUCT_INFO = gql`
     query GetRates {
-      product(id: "apple-imac-2021"){
+      product(id: "${this.props.itemId}"){
         name
         gallery
         description
@@ -33,7 +33,7 @@ export class OverlayItems extends Component {
       }
     }
   `;
-  function OverlayItemsFunct() {
+  function OverlayItemsFunct(props) {
     const { loading, error, data } = useQuery(PRODUCT_INFO);
 
     if (loading) return <p>Loading...</p>;
@@ -43,7 +43,7 @@ export class OverlayItems extends Component {
         <div className='productDescript'>
               <div>
                 <p className='productTitle'>{data.product.name}</p>
-                <p className='priceLabel'>{data.product.prices[0].currency.symbol}{data.product.prices[0].amount}</p>
+                <p className='priceLabel'>{data.product.prices[props.currencySwitcher].currency.symbol}{data.product.prices[props.currencySwitcher].amount}</p>
 
                 {data.product.attributes.map(item=>(
                     <>
@@ -70,7 +70,7 @@ export class OverlayItems extends Component {
 
               <div className='amounts'>
                 <button className='amountBtn'>+</button>
-                <p>1</p>
+                <p>{props.itemQuantity}</p>
                 <button className='amountBtn'>-</button>
               </div>
               <div>
@@ -79,7 +79,7 @@ export class OverlayItems extends Component {
             </div>
     )
 }
-    return <OverlayItemsFunct />
+    return <OverlayItemsFunct itemQuantity={this.props.itemQuantity} currencySwitcher={this.props.currencySwitcher} />
     }
 }
 

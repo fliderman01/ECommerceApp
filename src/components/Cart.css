@@ -24,6 +24,10 @@
     margin: 54px 0 0 0;
 }
 
+.orderSection{
+    display: flex;
+}
+
 .cartInfo {
     font-weight: 400;
     font-size: 24px;
@@ -32,11 +36,12 @@
 .infoVal {
     font-weight: 700;
     font-size: 24px;
+    margin: 10px 6px;
 }
 
 .totalInfo {
     font-weight: 500;
-    margin: 24px 0;
+    margin: 12px 0;
 }
 
 .orderBtn {

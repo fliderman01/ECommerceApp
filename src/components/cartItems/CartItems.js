@@ -9,7 +9,7 @@ export class CartItems extends Component {
   render() {
     const PRODUCT_INFO = gql`
     query GetRates {
-      product(id: "ps-5"){
+      product(id: "${this.props.itemId}"){
         name
         gallery
         description
@@ -33,7 +33,7 @@ export class CartItems extends Component {
       }
     }
   `;
-  function ProductItemsFunct() {
+  function ProductItemsFunct(props) {
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     const [carousel, setCarousel] = useState(0);
 
@@ -46,6 +46,7 @@ export class CartItems extends Component {
         setCarousel(carousel-1);
         carousel === 0 && setCarousel(data.product.gallery.length-1)
     }
+    
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
@@ -56,7 +57,10 @@ export class CartItems extends Component {
         <div>
           <h3>{data.product.name}</h3>
           {/* add currencySwitcher here */}
-          <p className='cartPrice'>{data.product.prices[0].currency.symbol}{data.product.prices[0].amount}</p>
+          <p className='cartPrice'>
+            {data.product.prices[props.currencySwitcher].currency.symbol}
+            {data.product.prices[props.currencySwitcher].amount}
+          </p>
 
 
 
@@ -69,12 +73,17 @@ export class CartItems extends Component {
                       ?
                       item.items.map(val=>(
                         // <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
-                        <li key={val.value}><label className='radioLabel' style={{backgroundColor: val.value}}><input className='colBtn' type='radio' name='color' /></label></li>
+                        <li key={val.id}>
+                          <label className='colLabel' style={{backgroundColor: val.value}}>
+                            <input className='radioInpBtn' type='radio' name='color' />
+                            4
+                          </label>
+                        </li>
                       ))
                       :
                       item.items.map(val=>(
                         // <li><button className='sizeBtn'>{val.displayValue}</button></li>
-                        <li key={val.value}><input className='sizeBtn' type='radio' name='attrChoice' value={val.displayValue} /></li>
+                        <li key={val.id}><label className='sizeLabel'><input className='radioInpBtn' type='radio' name='attrChoice' value={val.displayValue} />{val.displayValue}</label></li>
                       ))
                     }
                   </ul>
@@ -85,10 +94,10 @@ export class CartItems extends Component {
         <div className='btnImg'>
           <div className='amountBtns'>
             <button className='cartAmountBtn'>+</button>
-            <p className='cartAmount'>1</p>
+            <p className='cartAmount'>{props.itemQuantity}</p>
             <button className='cartAmountBtn'>-</button>
           </div>
-          <div>
+          <div className='imgBtns'>
             <img src={data.product.gallery[carousel]} alt='Item' style={{width: '200px'}} />
             <div className='backFowBtns'>
               <button className='backFowBtn' onClick={()=>decCarousel()}>{'<'}</button>
@@ -100,9 +109,12 @@ export class CartItems extends Component {
       </div>
     )
 }
-    return <ProductItemsFunct />
-    
+    return <ProductItemsFunct
+      itemQuantity={this.props.itemQuantity}
+      currencySwitcher={this.props.currencySwitcher}
+    />
   }
 }
+
 
 export default CartItems

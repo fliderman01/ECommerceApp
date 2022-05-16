@@ -5,15 +5,18 @@ aside {
     top: 78px;
     min-width: 325px;
     height: 680px;
-    padding: 32px 7px;
+    padding: 0px 7px 32px 7px;
     background-color: #FFFFFF;
     z-index: 1;
     overflow: auto;
 }
-/* 30/19.5 */
 /* TITLE */
 
 .title {
+    position:sticky;
+    top:0;
+    background-color: #FFFFFF;
+    padding: 39px 0 9px 0;
     font-weight: 700;
     font-size: 16px;
     text-align: left;

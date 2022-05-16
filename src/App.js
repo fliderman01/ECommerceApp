@@ -21,15 +21,17 @@ export default class App extends Component {
     this.state = {
        msg:'',
        currencySwitcher:0
-    }
-  };
-  // change category
-  categInfo = (Data) => {
-    this.setState({msg: Data})
-  };
-  // change currency
-  currencySwitch = (Data) => {
-    this.setState({currencySwitcher: Data})
+      }
+    };
+    // change category
+    categInfo = (Data) => {
+      this.setState({msg: Data})
+    };
+    // change currency
+    currencySwitch = (Data) => {
+      this.setState({currencySwitcher: Data})
+      console.log(Data, 'two')
+      console.log(this.state.currencySwitcher, 'three')
   };
 
   render() {
@@ -67,6 +69,12 @@ export default class App extends Component {
       // show/hide currency switcher
       const [showCurrency, setShowCurrency] = useState(true);
 
+      const currencyFuncts = (index) => {
+        setCurrency(index);
+        setShowCurrency(true) // replace with onBlur
+        sendSwitchData(index);
+      }
+
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
       return <div className='surface'>
@@ -77,12 +85,12 @@ export default class App extends Component {
               </div>
               <img src={svg3} alt='Green rectangle with an arrow inside' />
               <div className='actions'>
-                <span className='currencySwitch' onClick={()=>setShowCurrency(!showCurrency)}>{data.currencies[currency].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
+                <span className='currencySwitch' onBlur={()=>setShowCurrency(!showCurrency)} onClick={()=>setShowCurrency(!showCurrency)} >{data.currencies[currency].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
                 {console.log(currency, 'map')}
                 <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
                   <ul>
                     {data.currencies.map(({label, symbol}, index)=>(
-                      <li key={index} onClick={()=>{setCurrency(index); setShowCurrency(true); sendSwitchData(index);}} >{symbol} {label}</li>
+                      <li key={index} onClick={()=>currencyFuncts(index)} >{symbol} {label}</li>
                     ))}
                   </ul>
                 </div>
@@ -97,10 +105,10 @@ export default class App extends Component {
         <SiteHeader currency={this.props.currency} categInfo={this.categInfo} currencySwitch={this.currencySwitch} />
         <div className='overlay'></div>
 
-        <Overlay />
+        <Overlay currencySwitcher={this.state.currencySwitcher} />
         {/* <Category categ={this.state.msg} currencySwitcher={this.state.currencySwitcher} /> */}
         <Product currencySwitcher={this.state.currencySwitcher}/>
-        <Cart />
+        <Cart currencySwitcher={this.state.currencySwitcher} />
       </div>
     )
   }

@@ -23,6 +23,7 @@
 .sizeCol {
     font-weight: 700;
     font-size: 18px;
+    margin: 14px 0;
 }
 
 .cartProduct > div > ul > li {
@@ -62,6 +63,32 @@
     border: 1px solid #5ECE7B;
 }
 
+.radioInpBtn{
+    display: none;
+}
+
+.sizeLabel{
+    border: 1px solid #1D1F22;
+    margin-right: 9px;
+    padding: 9px;
+}
+.sizeLabel:hover{
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #1D1F22;
+}
+
+.colLabel{
+    padding: 6px 12px;
+    margin-right: 9px;
+    color: rgba(0, 0, 0, 0);
+}
+
+.colLabel:hover{
+    cursor: pointer;
+    border: 1px solid #5ECE7B;
+}
+
 .cartAmountBtn {
     width: 45px;
     height: 45px;
@@ -88,9 +115,17 @@
     font-size: 24px;
 }
 
+.imgBtns{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    height: 288px;
+}
+
 .backFowBtns {
-    /* position:sticky;
-    bottom: 44px; */
+    position:relative;
+    bottom: 44px;
+
     margin: 0 0 -28px 128px;
 }
 
@@ -101,6 +136,7 @@
     margin-right: 8px;
     color: #FFFFFF;
     border: none;
+    padding-bottom: 3px;
 }
 
 .backFowBtn:hover {
