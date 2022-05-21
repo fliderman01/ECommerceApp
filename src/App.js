@@ -124,7 +124,6 @@ export default class App extends Component {
           <Route path="cart" element={<Cart currencySwitcher={this.state.currencySwitcher} />} />
         </Routes>
 
-            {/* put Overlay.js inside Categories.js */}
         <Overlay currencySwitcher={this.state.currencySwitcher} />
         
         

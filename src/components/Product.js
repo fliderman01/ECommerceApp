@@ -7,12 +7,25 @@ import {
 } from '@apollo/client';
 
 export default class Product extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       productId:'ps-5' // make ' ' default when done
+    }
+  }
   render() {
     // console.log(this.props.currencySwitcher, 'Mercedez')
     // "huarache-x-stussy-le", "jacket-canada-goosee", "ps-5", "xbox-series-s", "apple-imac-2021", "apple-iphone-12-pro", "apple-airpods-pro", "apple-airtag"
+
+    const changeProductId = (id) => {
+      this.setState({
+        productId: id
+      })
+    }
     const PRODUCT_INFO = gql`
     query GetRates {
-      product(id: "ps-5"){
+      product(id: "${this.state.productId}"){
         id
         name
         gallery
@@ -106,6 +119,7 @@ export default class Product extends Component {
   }
   return (
     <>
+    <button onClick={()=>changeProductId('huarache-x-stussy-le')}>change id</button>
       <ProductFunct currencySwitcher={this.props.currencySwitcher} />
     </>
     )
