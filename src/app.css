@@ -81,3 +81,14 @@
     bottom:0;
     background-color: rgba(57, 55, 72, 0.22);
   }
+
+  /* misealaneaeous(?) */
+  
+
+.routerLink {
+    text-decoration: none;
+}
+
+.linkB{
+    color: #1D1F22;
+}

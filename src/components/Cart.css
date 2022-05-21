@@ -45,13 +45,10 @@
 }
 
 .orderBtn {
-    padding: 16px 32px;
+    /* padding: 16px 32px; */
     width: 279px;
     height: 43px;
     background: #5ECE7B;
-    font-weight: 600;
-    font-size: 14px;
-    color: #FFFFFF;
     border: none;
     cursor: pointer;
 }
@@ -59,4 +56,10 @@
     position: relative;
     top:2px;
     left: 2px;
+}
+#cartLink{
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+    padding: 32px 114px;
 }

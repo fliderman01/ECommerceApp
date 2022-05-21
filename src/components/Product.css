@@ -134,15 +134,10 @@
 }
 
 .addBtn {
-    padding: 16px 32px;
     width: 292px;
     height: 52px;
     background: #5ECE7B;
     border: none;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 120%;
-    color: #FFFFFF;
 }
 
 .addBtn:hover {
@@ -153,6 +148,14 @@
     position: relative;
     top: 2px;
     left: 2px;
+}
+
+#addLink {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 120%;
+    color: #FFFFFF;
+    padding: 32px 93.5px;
 }
 
 .descripTxt {

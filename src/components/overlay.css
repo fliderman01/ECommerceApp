@@ -58,8 +58,6 @@ aside {
     height: 43px;
     font-weight: 600;
     font-size: 14px;
-    text-transform: uppercase;
-    
     background: #FFFFFF;
     border: 1.5px solid #1D1F22;
     color: #1D1F22;
@@ -74,4 +72,10 @@ aside {
 
 .view {
     margin: 0 9px 0 0;
+}
+
+#overlayLink{
+    font-weight: 600;
+    font-size: 14px;
+    padding: 32px 33px;
 }

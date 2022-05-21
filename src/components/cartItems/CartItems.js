@@ -56,7 +56,7 @@ export class CartItems extends Component {
         <div className='cartProduct'>
 
         <div>
-          <h3><Link to="/product">{data.product.name}</Link></h3>
+          <h3><Link className='routerLink CartItemsLink linkB' to="/product">{data.product.name}</Link></h3>
           {/* add currencySwitcher here */}
           <p className='cartPrice'>
             {data.product.prices[props.currencySwitcher].currency.symbol}

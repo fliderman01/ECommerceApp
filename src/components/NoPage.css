@@ -1,0 +1,14 @@
+.notFoundDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title404{
+    font-size: 224px;
+}
+
+.txt404{
+    font-size: 31px;
+}

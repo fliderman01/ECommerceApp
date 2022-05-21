@@ -109,7 +109,7 @@ export default class Product extends Component {
                     quantity: 1
                   }])
                 }
-              }><Link to="/">ADD TO CART</Link></button>
+              }><Link className='routerLink' id='addLink' to="/">ADD TO CART</Link></button>
               
               <div className='descripTxt'>
                 <div dangerouslySetInnerHTML={{__html: data.product.description}} />
@@ -119,6 +119,7 @@ export default class Product extends Component {
   }
   return (
     <>
+    {/* add id as argument from Cart & Categories */}
     <button onClick={()=>changeProductId('huarache-x-stussy-le')}>change id</button>
       <ProductFunct currencySwitcher={this.props.currencySwitcher} />
     </>

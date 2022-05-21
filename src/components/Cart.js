@@ -52,7 +52,7 @@ export default class Cart extends Component {
         </div>
          
          {/* make entire btn clickable */}
-          <button className='orderBtn'><Link to="/">ORDER</Link></button>
+          <button className='orderBtn'><Link className='routerLink linkB' id='cartLink' to="/">ORDER</Link></button>
         </div>
 
       </div>

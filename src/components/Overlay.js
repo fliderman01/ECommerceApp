@@ -34,7 +34,7 @@ export default class Overlay extends Component {
           </div>
           {/* bag buttons */}
           <div className='bag'>
-            <button className='bagBtn view'><Link to="/cart">VIEW BAG</Link></button>
+            <button className='bagBtn view'><Link className='routerLink linkB' id='overlayLink' to="/cart">VIEW BAG</Link></button>
             <button className='bagBtn'>CHECK OUT</button>
           </div>
         </div>

@@ -50,11 +50,11 @@ export default class category extends Component {
 
           {data.category.products.map(({id, name, inStock, gallery, prices})=>(
             <section key={id}>
-                <Link to="/product">
+                <Link className='routerLink linkB' to={inStock ? "/product" : "/"}>
                   <img onMouseOver={()=>setShowBtn(true)} onMouseOut={()=>setShowBtn(false)} src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}/>
                 </Link>
                   <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
-                <Link to="/product">
+                <Link className='routerLink linkB' to={inStock ? "/product" : "/"}>
                   <p style={{opacity: inStock ? '1' : '.5'}} className='categoryTitle'>{name}</p>
                 </Link>
                 <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>{prices[props.currencySwitcher].currency.symbol}{prices[props.currencySwitcher].amount}</p>

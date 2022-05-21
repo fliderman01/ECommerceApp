@@ -4,6 +4,7 @@ import Cart from './components/Cart';
 import Category from './components/Category';
 import Overlay from './components/Overlay';
 import Product from './components/Product';
+import NoPage from './components/NoPage';
 import './app.css';
 import svg3 from './icons/svg3.svg';
 import vectorUp from './icons/VectorUp.png';
@@ -122,6 +123,7 @@ export default class App extends Component {
         />} />
           <Route path="product" element={<Product currencySwitcher={this.state.currencySwitcher} />} />
           <Route path="cart" element={<Cart currencySwitcher={this.state.currencySwitcher} />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
 
         <Overlay currencySwitcher={this.state.currencySwitcher} />
