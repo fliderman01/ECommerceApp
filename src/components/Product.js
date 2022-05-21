@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Product.css';
 import {
   useQuery,
@@ -95,7 +96,7 @@ export default class Product extends Component {
                     quantity: 1
                   }])
                 }
-              }>ADD TO CART</button>
+              }><Link to="/">ADD TO CART</Link></button>
               
               <div className='descripTxt'>
                 <div dangerouslySetInnerHTML={{__html: data.product.description}} />

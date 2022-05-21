@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import OverlayItems from './overlayItems/OverlayItems';
 import './overlay.css';
 import dataForMap from '../data/Dummy.json';
@@ -33,7 +34,7 @@ export default class Overlay extends Component {
           </div>
           {/* bag buttons */}
           <div className='bag'>
-            <button className='bagBtn view'>VIEW BAG</button>
+            <button className='bagBtn view'><Link to="/cart">VIEW BAG</Link></button>
             <button className='bagBtn'>CHECK OUT</button>
           </div>
         </div>

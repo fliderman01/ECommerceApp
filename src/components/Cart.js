@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Cart.css';
 import CartItems from './cartItems/CartItems';
 import dataForMap from '../data/Dummy.json';
+import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
   constructor(props) {
@@ -50,7 +51,8 @@ export default class Cart extends Component {
           </div>
         </div>
          
-          <button className='orderBtn'>ORDER</button>
+         {/* make entire btn clickable */}
+          <button className='orderBtn'><Link to="/">ORDER</Link></button>
         </div>
 
       </div>

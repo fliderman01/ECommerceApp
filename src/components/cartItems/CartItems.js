@@ -1,4 +1,5 @@
 import React, { Component, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './cartItems.css';
 import {
     useQuery,
@@ -55,7 +56,7 @@ export class CartItems extends Component {
         <div className='cartProduct'>
 
         <div>
-          <h3>{data.product.name}</h3>
+          <h3><Link to="/product">{data.product.name}</Link></h3>
           {/* add currencySwitcher here */}
           <p className='cartPrice'>
             {data.product.prices[props.currencySwitcher].currency.symbol}
@@ -103,7 +104,9 @@ export class CartItems extends Component {
             <button className='cartAmountBtn'>-</button>
           </div>
           <div className='imgBtns'>
-            <img src={data.product.gallery[carousel]} alt='Item' style={{width: '200px'}} />
+            <Link to="/product">
+              <img src={data.product.gallery[carousel]} alt='Item' style={{width: '200px'}} />
+            </Link>
             <div className='backFowBtns'>
               <button className='backFowBtn' onClick={()=>decCarousel()}>{'<'}</button>
               <button className='backFowBtn' onClick={()=>incCarousel()}>{'>'}</button>

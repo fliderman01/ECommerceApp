@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Cart from './components/Cart';
-// import Category from './components/Category';
+import Category from './components/Category';
 import Overlay from './components/Overlay';
 import Product from './components/Product';
 import './app.css';
@@ -20,7 +21,8 @@ export default class App extends Component {
   
     this.state = {
        msg:'',
-       currencySwitcher:0
+       currencySwitcher:0,
+       cart:[]
       }
     };
     // change category
@@ -30,11 +32,17 @@ export default class App extends Component {
     // change currency
     currencySwitch = (Data) => {
       this.setState({currencySwitcher: Data})
-      console.log(Data, 'two')
-      console.log(this.state.currencySwitcher, 'three')
+      console.log(Data, 'twoData')
+      console.log(this.state.currencySwitcher, 'threeSwitcher')
   };
 
   render() {
+    const changeCart = () => {
+      this.setState({
+          cart: 'hi'
+        });
+        console.log(this.state.cart, 'nolke')
+    }
 
     function SiteHeader(props) {      
       // category filter
@@ -71,7 +79,7 @@ export default class App extends Component {
 
       const currencyFuncts = (index) => {
         setCurrency(index);
-        setShowCurrency(true) // replace with onBlur
+        setShowCurrency(true);
         sendSwitchData(index);
       }
 
@@ -83,7 +91,7 @@ export default class App extends Component {
                   <p onClick={()=>{sendData(name);}} key={name}>{name}</p>
                 ))}
               </div>
-              <img src={svg3} alt='Green rectangle with an arrow inside' />
+              <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' /></Link>
               <div className='actions'>
                 <span className='currencySwitch' onBlur={()=>setShowCurrency(!showCurrency)} onClick={()=>setShowCurrency(!showCurrency)} >{data.currencies[currency].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
                 {console.log(currency, 'map')}
@@ -100,16 +108,28 @@ export default class App extends Component {
     }
 
     return (
-      <div>
+      <BrowserRouter>
 
         <SiteHeader currency={this.props.currency} categInfo={this.categInfo} currencySwitch={this.currencySwitch} />
         <div className='overlay'></div>
 
+        <Routes>
+          <Route index element={<Category
+            categ={this.state.msg}
+            currencySwitcher={this.state.currencySwitcher}
+            cart={this.state.cart}
+            changeCart={changeCart}
+        />} />
+          <Route path="product" element={<Product currencySwitcher={this.state.currencySwitcher} />} />
+          <Route path="cart" element={<Cart currencySwitcher={this.state.currencySwitcher} />} />
+        </Routes>
+
+            {/* put Overlay.js inside Categories.js */}
         <Overlay currencySwitcher={this.state.currencySwitcher} />
-        {/* <Category categ={this.state.msg} currencySwitcher={this.state.currencySwitcher} /> */}
-        <Product currencySwitcher={this.state.currencySwitcher}/>
-        <Cart currencySwitcher={this.state.currencySwitcher} />
-      </div>
+        
+        
+        
+      </BrowserRouter>
     )
   }
 }

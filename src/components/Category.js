@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react';
 import './category.css';
+import { Link } from 'react-router-dom';
 import shopping from '../icons/shoppWhite.png'
 import {
   useQuery,
@@ -8,9 +9,11 @@ import {
 
 export default class category extends Component {
   render(props) {
-    
     function CategoryFunct(props) {
       // console.log(props.currencySwitcher, 'currency')
+      const [cartData, setCartData] = useState([]);
+      // do delete duplicate items & increase quantity here
+      console.log(cartData, 'carto')
 
     const PRODUCT_CATEGORIES = gql`
     query GetRates {
@@ -47,11 +50,21 @@ export default class category extends Component {
 
           {data.category.products.map(({id, name, inStock, gallery, prices})=>(
             <section key={id}>
-                <img onMouseOver={()=>setShowBtn(true)} onMouseOut={()=>setShowBtn(false)} src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}/>
-                <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
-                <p style={{opacity: inStock ? '1' : '.5'}} className='categoryTitle'>{name}</p>
+                <Link to="/product">
+                  <img onMouseOver={()=>setShowBtn(true)} onMouseOut={()=>setShowBtn(false)} src={gallery[0]} alt={name} style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}/>
+                </Link>
+                  <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
+                <Link to="/product">
+                  <p style={{opacity: inStock ? '1' : '.5'}} className='categoryTitle'>{name}</p>
+                </Link>
                 <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>{prices[props.currencySwitcher].currency.symbol}{prices[props.currencySwitcher].amount}</p>
-                <button className='cartBtn' style={{display: showBtn ? 'initial' : 'none'}}><img style={{width: '54px'}} src={shopping} alt='shopping wheel'/></button>
+                <button 
+                  onClick={()=>setCartData(inStock && [...cartData, {id: id, quantity: 1}])}
+                  className='cartBtn' style={{display: (showBtn && inStock) ? 'initial' : 'none'}}
+                  onMouseOver={()=>setShowBtn(true)} onMouseOut={()=>setShowBtn(false)}
+                >
+                    <img style={{width: '54px'}} src={shopping} alt='shopping wheel'/>
+                </button>
             </section>
              ))}
       </div>
@@ -61,7 +74,11 @@ export default class category extends Component {
   }
   return (
     <>
-      <CategoryFunct categ={this.props.categ} currencySwitcher={this.props.currencySwitcher}/>
+      <CategoryFunct
+        categ={this.props.categ}
+        currencySwitcher={this.props.currencySwitcher}
+        sendCartData={this.props.sendCartData}
+      />
     </>
     )
   }
