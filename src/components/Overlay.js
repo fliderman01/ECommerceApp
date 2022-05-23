@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import OverlayItems from './overlayItems/OverlayItems';
 import './overlay.css';
-import dataForMap from '../data/Dummy.json';
 
 
 export default class Overlay extends Component {
   render() {
-    const infoMap = dataForMap.infoForMap;
+    const infoMap = this.props.cart;
     // items total quantity
     const quantitySum = () => {
       const quantity = infoMap.map(i=>i.quantity);
       return quantity.reduce((a, b) => a + b, 0);
     }
     return (
-      <aside style={{display: 'none'}}>
+      <aside style={{display: this.props.showOverlay ? 'initial' : 'none'}}>
         {/* title */}
         <div className='title'>
           <h6>My Bag, <span className='itemNum'>{quantitySum()} items</span></h6>
@@ -22,7 +21,14 @@ export default class Overlay extends Component {
 
         {/* product description */}
         {infoMap.map(i=>{
-          return <OverlayItems key={i.id} itemId={i.id} itemQuantity={i.quantity} currencySwitcher={this.props.currencySwitcher} />
+          return <OverlayItems
+              key={i.id}
+              itemId={i.id}
+              itemQuantity={i.quantity}
+              currencySwitcher={this.props.currencySwitcher}
+              changeProductId={this.props.changeProductId}
+              toggleOverlay={this.props.toggleOverlay}
+            />
         })}
 
         {/* bag footer */}

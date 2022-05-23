@@ -56,7 +56,15 @@ export class CartItems extends Component {
         <div className='cartProduct'>
 
         <div>
-          <h3><Link className='routerLink CartItemsLink linkB' to="/product">{data.product.name}</Link></h3>
+          <h3>
+            <Link
+                onClick={()=>props.changeProductId(props.itemId)}
+                className='routerLink CartItemsLink linkB'
+                to="/product"
+              >
+                {data.product.name}
+              </Link>
+          </h3>
           {/* add currencySwitcher here */}
           <p className='cartPrice'>
             {data.product.prices[props.currencySwitcher].currency.symbol}
@@ -105,7 +113,12 @@ export class CartItems extends Component {
           </div>
           <div className='imgBtns'>
             <Link to="/product">
-              <img src={data.product.gallery[carousel]} alt='Item' style={{width: '200px'}} />
+              <img 
+                src={data.product.gallery[carousel]} 
+                alt='Item'
+                style={{width: '200px'}}
+                onClick={()=>props.changeProductId(props.itemId)}
+              />
             </Link>
             <div className='backFowBtns'>
               <button className='backFowBtn' onClick={()=>decCarousel()}>{'<'}</button>
@@ -120,6 +133,8 @@ export class CartItems extends Component {
     return <ProductItemsFunct
       itemQuantity={this.props.itemQuantity}
       currencySwitcher={this.props.currencySwitcher}
+      itemId={this.props.itemId}
+      changeProductId={this.props.changeProductId}
     />
   }
 }

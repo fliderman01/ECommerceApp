@@ -7,25 +7,13 @@ import {
 } from '@apollo/client';
 
 export default class Product extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       productId:'ps-5' // make ' ' default when done
-    }
-  }
   render() {
     // console.log(this.props.currencySwitcher, 'Mercedez')
     // "huarache-x-stussy-le", "jacket-canada-goosee", "ps-5", "xbox-series-s", "apple-imac-2021", "apple-iphone-12-pro", "apple-airpods-pro", "apple-airtag"
 
-    const changeProductId = (id) => {
-      this.setState({
-        productId: id
-      })
-    }
     const PRODUCT_INFO = gql`
     query GetRates {
-      product(id: "${this.state.productId}"){
+      product(id: "${this.props.productId}"){
         id
         name
         gallery
@@ -50,12 +38,12 @@ export default class Product extends Component {
       }
     }
   `;
-  function ProductFunct({currencySwitcher}) {
+  function ProductFunct({currencySwitcher, changeCart}) {
     // const [attrBtn, setAttrBtn] = useState('')
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     const [mainPic, setMainPic] = useState('');
-    const [cartData, setCartData] = useState([]);
-    console.log(cartData, 'info')
+    // const [cartData, setCartData] = useState([]);
+    // console.log(cartData, 'info')
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
@@ -102,14 +90,23 @@ export default class Product extends Component {
               ))}
               <p className='priceSize'>PRICE:</p>
               <p className='itemPrice'>{data.product.prices[currencySwitcher].currency.symbol}{data.product.prices[currencySwitcher].amount}</p>
-              <button className='addBtn' onClick={
-                ()=>{
-                  setCartData([...cartData, {
-                    id: data.product.id,
-                    quantity: 1
-                  }])
-                }
-              }><Link className='routerLink' id='addLink' to="/">ADD TO CART</Link></button>
+              <button className='addBtn'
+              // onClick={
+              //   ()=>{
+              //     setCartData([...cartData, {
+              //       id: data.product.id,
+              //       quantity: 1
+              //     }])
+              //   }
+              // }
+              onClick={()=>{
+                changeCart(data.product.id, 1)
+              }}
+              >
+                <Link className='routerLink' id='addLink' to="/">
+                  ADD TO CART
+                </Link>
+              </button>
               
               <div className='descripTxt'>
                 <div dangerouslySetInnerHTML={{__html: data.product.description}} />
@@ -119,9 +116,7 @@ export default class Product extends Component {
   }
   return (
     <>
-    {/* add id as argument from Cart & Categories */}
-    <button onClick={()=>changeProductId('huarache-x-stussy-le')}>change id</button>
-      <ProductFunct currencySwitcher={this.props.currencySwitcher} />
+      <ProductFunct currencySwitcher={this.props.currencySwitcher} changeCart={this.props.changeCart} />
     </>
     )
   }

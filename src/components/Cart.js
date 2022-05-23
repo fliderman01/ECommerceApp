@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import './Cart.css';
 import CartItems from './cartItems/CartItems';
-import dataForMap from '../data/Dummy.json';
 import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       Cart:[]
-    }
-  }
   render() {
-    const infoMap = dataForMap.infoForMap; // delete afther fetching this info from other source (if you !need this name)
+    const infoMap = this.props.cart;
     // total quantity of items
     const quantitySum = () => {
       const quantity = infoMap.map(i=>i.quantity);
@@ -30,6 +22,7 @@ export default class Cart extends Component {
                     itemId={i.id}
                     itemQuantity={i.quantity}
                     currencySwitcher={this.props.currencySwitcher}
+                    changeProductId={this.props.changeProductId}
                   />
         })}
 

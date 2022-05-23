@@ -92,3 +92,7 @@
 .linkB{
     color: #1D1F22;
 }
+
+img{
+    cursor: pointer;
+}

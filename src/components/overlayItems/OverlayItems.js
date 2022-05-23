@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './overlayItems.css';
 import {
     useQuery,
@@ -42,7 +43,9 @@ export class OverlayItems extends Component {
     return (
         <div className='productDescript'>
               <div>
-                <p className='productTitle'>{data.product.name}</p>
+                <Link to="/product" className='routerLink linkB'>
+                  <p onClick={()=>{props.changeProductId(props.itemId); props.toggleOverlay()}} className='productTitle'>{data.product.name}</p>
+                </Link>
                 <p className='priceLabel'>{data.product.prices[props.currencySwitcher].currency.symbol}{data.product.prices[props.currencySwitcher].amount}</p>
 
                 {data.product.attributes.map(item=>(
@@ -74,12 +77,25 @@ export class OverlayItems extends Component {
                 <button className='amountBtn'>-</button>
               </div>
               <div>
-                <img src={data.product.gallery[0]} alt='Item' style={{ height: '190px'}} />
+                <Link to="/product">
+                  <img
+                    src={data.product.gallery[0]}
+                    alt='Item'
+                    style={{ height: '190px'}}
+                    onClick={()=>{props.changeProductId(props.itemId); props.toggleOverlay()}}
+                  />
+                </Link>
               </div>
             </div>
     )
 }
-    return <OverlayItemsFunct itemQuantity={this.props.itemQuantity} currencySwitcher={this.props.currencySwitcher} />
+    return <OverlayItemsFunct
+      itemQuantity={this.props.itemQuantity}
+      currencySwitcher={this.props.currencySwitcher}
+      changeProductId={this.props.changeProductId}
+      itemId={this.props.itemId}
+      toggleOverlay={this.props.toggleOverlay}
+    />
     }
 }
 

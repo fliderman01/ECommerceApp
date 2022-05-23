@@ -13,6 +13,10 @@
 
 .productTitle {
     line-height: 160%;
+    cursor: pointer;
+}
+.productTitle:hover {
+    opacity: .7;
 }
 
 .productSize {

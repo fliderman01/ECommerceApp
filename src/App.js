@@ -23,7 +23,9 @@ export default class App extends Component {
     this.state = {
        msg:'',
        currencySwitcher:0,
-       cart:[]
+       cart:[{id:'ps-5', quantity:1}], // empty string
+       peoductId:'',
+       showOverlay:false
       }
     };
     // change category
@@ -36,13 +38,29 @@ export default class App extends Component {
       console.log(Data, 'twoData')
       console.log(this.state.currencySwitcher, 'threeSwitcher')
   };
+    // show / hide overlay
+    toggleOverlay = () => {
+      this.setState({
+        showOverlay: !this.state.showOverlay
+      })
+    }
 
   render() {
-    const changeCart = () => {
+    // add items to cart
+    const changeCart = (id, quantity) => {
       this.setState({
-          cart: 'hi'
+          cart: [...this.state.cart, {
+            id: id,
+            quantity: quantity
+          }]
         });
-        console.log(this.state.cart, 'nolke')
+        console.log(this.state.cart, 'kartarara')
+    }
+    // change id of item in Product
+    const changeProductId = (data) => {
+      this.setState({
+        productId: data
+      })
     }
 
     function SiteHeader(props) {      
@@ -78,6 +96,7 @@ export default class App extends Component {
       // show/hide currency switcher
       const [showCurrency, setShowCurrency] = useState(true);
 
+      // switch / set currency (is error because this and above (localStorage) change currency concurently?(DELETE THIS))
       const currencyFuncts = (index) => {
         setCurrency(index);
         setShowCurrency(true);
@@ -92,7 +111,7 @@ export default class App extends Component {
                   <p onClick={()=>{sendData(name);}} key={name}>{name}</p>
                 ))}
               </div>
-              <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' /></Link>
+              <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' onClick={()=>props.toggleOverlay()} /></Link>
               <div className='actions'>
                 <span className='currencySwitch' onBlur={()=>setShowCurrency(!showCurrency)} onClick={()=>setShowCurrency(!showCurrency)} >{data.currencies[currency].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
                 {console.log(currency, 'map')}
@@ -103,7 +122,12 @@ export default class App extends Component {
                     ))}
                   </ul>
                 </div>
-                  <img src={Vector} alt='Shopping wheel' style={{width:'37px'}} />
+                  <img
+                    src={Vector}
+                    alt='Shopping wheel'
+                    style={{width:'37px'}}
+                    onClick={()=>props.toggleOverlay()}
+                  />
               </div>
             </div>
     }
@@ -111,7 +135,13 @@ export default class App extends Component {
     return (
       <BrowserRouter>
 
-        <SiteHeader currency={this.props.currency} categInfo={this.categInfo} currencySwitch={this.currencySwitch} />
+        {/* delete this.props.currency */}
+        <SiteHeader
+          currency={this.props.currency}
+          categInfo={this.categInfo}
+          currencySwitch={this.currencySwitch}
+          toggleOverlay={this.toggleOverlay}
+        />
         <div className='overlay'></div>
 
         <Routes>
@@ -120,13 +150,28 @@ export default class App extends Component {
             currencySwitcher={this.state.currencySwitcher}
             cart={this.state.cart}
             changeCart={changeCart}
+            changeProductId={changeProductId}
         />} />
-          <Route path="product" element={<Product currencySwitcher={this.state.currencySwitcher} />} />
-          <Route path="cart" element={<Cart currencySwitcher={this.state.currencySwitcher} />} />
+          <Route path="product" element={<Product
+                                            currencySwitcher={this.state.currencySwitcher}
+                                            productId={this.state.productId}
+                                            changeCart={changeCart}
+                                          />} />
+          <Route path="cart" element={<Cart
+                                            currencySwitcher={this.state.currencySwitcher}
+                                            changeProductId={changeProductId}
+                                            cart={this.state.cart}
+                                          />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
 
-        <Overlay currencySwitcher={this.state.currencySwitcher} />
+        <Overlay
+            currencySwitcher={this.state.currencySwitcher}
+            changeProductId={changeProductId}
+            cart={this.state.cart}
+            showOverlay={this.state.showOverlay}
+            toggleOverlay={this.toggleOverlay}
+        />
         
         
         
