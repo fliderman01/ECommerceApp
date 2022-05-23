@@ -1,20 +1,15 @@
-import React, { Component, useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Cart from './components/Cart';
 import Category from './components/Category';
+import SiteHeader from './components/SiteHeader';
 import Overlay from './components/Overlay';
 import Product from './components/Product';
 import NoPage from './components/NoPage';
 import './app.css';
-import svg3 from './icons/svg3.svg';
-import vectorUp from './icons/VectorUp.png';
 // import wheel from './icons/wheel.svg';
 // make vector wheel if end up using it
-import Vector from './icons/shopping.png';
-import {
-  useQuery,
-  gql,
-} from '@apollo/client';
+
 
 export default class App extends Component {
   constructor(props) {
@@ -44,6 +39,19 @@ export default class App extends Component {
         showOverlay: !this.state.showOverlay
       })
     }
+    // empty cart (on order or check out)
+    emptyCart = () => {
+      this.setState({
+        cart:[]
+      })
+    }
+    // add item (quantity) to cart
+    // addItem = (id) => {
+    //   // this.state.cart.map(i => i.id === id && i.quantity + 1)
+    //   this.setState({
+    //     cart: this.state.cart.map(i=>i.id===id && i.quantity +1)
+    //   })
+    // }
 
   render() {
     // add items to cart
@@ -54,82 +62,12 @@ export default class App extends Component {
             quantity: quantity
           }]
         });
-        console.log(this.state.cart, 'kartarara')
     }
     // change id of item in Product
     const changeProductId = (data) => {
       this.setState({
         productId: data
       })
-    }
-
-    function SiteHeader(props) {      
-      // category filter
-      const sendData = (info) => {
-        props.categInfo(info);
-      }
-      // currency switcher
-      const sendSwitchData = (info) => {
-        props.currencySwitch(info)
-      }
-
-      const CATEG_CURRENCIES = gql`
-        query GetRates {
-          categories{
-            name
-          }
-          currencies{
-            label
-            symbol
-          }
-        }
-      `;
-      const { loading, error, data } = useQuery(CATEG_CURRENCIES);
-      // switch currency
-      const [currency, setCurrency] = useState(() => {
-        const saved = localStorage.getItem('currency');
-        return saved ? JSON.parse(saved) : 0;
-      });
-      useEffect(() => {
-        localStorage.setItem('currency', JSON.stringify(currency));
-      }, [currency]);
-      // show/hide currency switcher
-      const [showCurrency, setShowCurrency] = useState(true);
-
-      // switch / set currency (is error because this and above (localStorage) change currency concurently?(DELETE THIS))
-      const currencyFuncts = (index) => {
-        setCurrency(index);
-        setShowCurrency(true);
-        sendSwitchData(index);
-      }
-
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error :(</p>;
-      return <div className='surface'>
-              <div className='category'>
-                {data.categories.map(({name})=>(
-                  <p onClick={()=>{sendData(name);}} key={name}>{name}</p>
-                ))}
-              </div>
-              <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' onClick={()=>props.toggleOverlay()} /></Link>
-              <div className='actions'>
-                <span className='currencySwitch' onBlur={()=>setShowCurrency(!showCurrency)} onClick={()=>setShowCurrency(!showCurrency)} >{data.currencies[currency].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
-                {console.log(currency, 'map')}
-                <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
-                  <ul>
-                    {data.currencies.map(({label, symbol}, index)=>(
-                      <li key={index} onClick={()=>currencyFuncts(index)} >{symbol} {label}</li>
-                    ))}
-                  </ul>
-                </div>
-                  <img
-                    src={Vector}
-                    alt='Shopping wheel'
-                    style={{width:'37px'}}
-                    onClick={()=>props.toggleOverlay()}
-                  />
-              </div>
-            </div>
     }
 
     return (
@@ -141,8 +79,11 @@ export default class App extends Component {
           categInfo={this.categInfo}
           currencySwitch={this.currencySwitch}
           toggleOverlay={this.toggleOverlay}
+          currencySwitcher={this.state.currencySwitcher}
         />
         <div className='overlay'></div>
+        {/* delete afther finish */}
+        <button onClick={()=>this.addItem('ps-5')}>+</button>
 
         <Routes>
           <Route index element={<Category
@@ -161,6 +102,7 @@ export default class App extends Component {
                                             currencySwitcher={this.state.currencySwitcher}
                                             changeProductId={changeProductId}
                                             cart={this.state.cart}
+                                            emptyCart={this.emptyCart}
                                           />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
@@ -171,6 +113,7 @@ export default class App extends Component {
             cart={this.state.cart}
             showOverlay={this.state.showOverlay}
             toggleOverlay={this.toggleOverlay}
+            emptyCart={this.emptyCart}
         />
         
         

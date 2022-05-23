@@ -40,8 +40,8 @@ export default class Overlay extends Component {
           </div>
           {/* bag buttons */}
           <div className='bag'>
-            <button className='bagBtn view'><Link className='routerLink linkB' id='overlayLink' to="/cart">VIEW BAG</Link></button>
-            <button className='bagBtn'>CHECK OUT</button>
+            <button onClick={()=>this.props.toggleOverlay()} className='bagBtn view'><Link className='routerLink linkB' id='overlayLink' to="/cart">VIEW BAG</Link></button>
+            <button onClick={()=>this.props.emptyCart()} className='bagBtn'>CHECK OUT</button>
           </div>
         </div>
       </aside>
