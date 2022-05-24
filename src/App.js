@@ -18,7 +18,7 @@ export default class App extends Component {
     this.state = {
        msg:'',
        currencySwitcher:0,
-       cart:[{id:'ps-5', quantity:1}], // empty string
+       cart:[{id:'ps-5', quantity:3}], // empty string
        peoductId:'',
        showOverlay:false
       }
@@ -30,8 +30,6 @@ export default class App extends Component {
     // change currency
     currencySwitch = (Data) => {
       this.setState({currencySwitcher: Data})
-      console.log(Data, 'twoData')
-      console.log(this.state.currencySwitcher, 'threeSwitcher')
   };
     // show / hide overlay
     toggleOverlay = () => {
@@ -52,8 +50,16 @@ export default class App extends Component {
     //     cart: this.state.cart.map(i=>i.id===id && i.quantity +1)
     //   })
     // }
+    // increase quantity in cart
+    // addCart = (data) => {
+    //   this.setState((prevstate =>{
+    //     cart: [...this.state.cart, this.state.cart[data].quantity + 1]
+    //   })
+    // }
 
   render() {
+    console.log(this.state.cart[0].quantity, 'nikita')
+
     // add items to cart
     const changeCart = (id, quantity) => {
       this.setState({
@@ -84,6 +90,7 @@ export default class App extends Component {
         <div className='overlay'></div>
         {/* delete afther finish */}
         <button onClick={()=>this.addItem('ps-5')}>+</button>
+        <button onClick={()=>this.addCart(0)}>+item</button>
 
         <Routes>
           <Route index element={<Category

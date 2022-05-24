@@ -20,7 +20,7 @@ export default class Overlay extends Component {
         </div>
 
         {/* product description */}
-        {infoMap.map(i=>{
+        {infoMap.map((i, index)=>{
           return <OverlayItems
               key={i.id}
               itemId={i.id}
@@ -28,6 +28,7 @@ export default class Overlay extends Component {
               currencySwitcher={this.props.currencySwitcher}
               changeProductId={this.props.changeProductId}
               toggleOverlay={this.props.toggleOverlay}
+              index={index}
             />
         })}
 

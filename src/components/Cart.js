@@ -11,6 +11,11 @@ export default class Cart extends Component {
       const quantity = infoMap.map(i=>i.quantity);
       return quantity.reduce((a, b) => a + b, 0);
     }
+    // calculate Tax 21%
+    const total = (total) => {
+      const result = Math.round((21 * total) / 100)
+      return result;
+    }
 
     return (
       <div className='cart'>
@@ -38,7 +43,7 @@ export default class Cart extends Component {
           </div>
 
           <div>
-            <p className='infoVal'>$42.00</p>
+            <p className='infoVal'>${total(200)}.00</p>
             <p className='infoVal'>{quantitySum()}</p>
             <p className='infoVal'>$244.11</p>
           </div>
