@@ -72,9 +72,9 @@ export class OverlayItems extends Component {
 
 
               <div className='amounts'>
-                <button className='amountBtn'>+</button>
+                <button className='amountBtn' onClick={()=>props.addCart(props.index)}>+</button>
                 <p>{props.itemQuantity}</p>
-                <button className='amountBtn'>-</button>
+                <button className='amountBtn' onClick={()=>props.decCart(props.index)}>-</button>
               </div>
               <div>
                 <Link to="/product">
@@ -95,6 +95,9 @@ export class OverlayItems extends Component {
       changeProductId={this.props.changeProductId}
       itemId={this.props.itemId}
       toggleOverlay={this.props.toggleOverlay}
+      addCart={this.props.addCart}
+      decCart={this.props.decCart}
+      index={this.props.index}
     />
     }
 }

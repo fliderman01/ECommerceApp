@@ -51,11 +51,31 @@ export default class App extends Component {
     //   })
     // }
     // increase quantity in cart
-    // addCart = (data) => {
-    //   this.setState((prevstate =>{
-    //     cart: [...this.state.cart, this.state.cart[data].quantity + 1]
-    //   })
-    // }
+    addCart = (index) => {
+      if (this.state.cart) {
+        let temp_state = [...this.state.cart];
+        let temp_element = { ...temp_state[index] };
+        temp_element.quantity = temp_element.quantity+1;
+        temp_state[index] = temp_element;
+        this.setState({cart: temp_state });
+      }
+    }
+    // decrease quantity in cart
+    decCart = (index) => {
+      if (this.state.cart) {
+        let temp_state = [...this.state.cart];
+        let temp_element = { ...temp_state[index] };
+        temp_element.quantity = temp_element.quantity-1;
+        temp_state[index] = temp_element;
+        this.setState({cart: temp_state });
+      }
+      // del element from array
+      if (this.state.cart[index].quantity<1){
+        // let temp_state = [...this.state.cart];
+        // const newState = temp_state.filter((_, i) => i !== index);
+        this.setState({cart: []})
+      }
+    }
 
   render() {
     console.log(this.state.cart[0].quantity, 'nikita')
@@ -90,13 +110,13 @@ export default class App extends Component {
         <div className='overlay'></div>
         {/* delete afther finish */}
         <button onClick={()=>this.addItem('ps-5')}>+</button>
-        <button onClick={()=>this.addCart(0)}>+item</button>
+        <button onClick={()=>this.decCart(0)}>+item</button>
 
         <Routes>
           <Route index element={<Category
             categ={this.state.msg}
             currencySwitcher={this.state.currencySwitcher}
-            cart={this.state.cart}
+            // cart={this.state.cart}
             changeCart={changeCart}
             changeProductId={changeProductId}
         />} />
@@ -110,6 +130,8 @@ export default class App extends Component {
                                             changeProductId={changeProductId}
                                             cart={this.state.cart}
                                             emptyCart={this.emptyCart}
+                                            addCart={this.addCart}
+                                            decCart={this.decCart}
                                           />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
@@ -121,6 +143,8 @@ export default class App extends Component {
             showOverlay={this.state.showOverlay}
             toggleOverlay={this.toggleOverlay}
             emptyCart={this.emptyCart}
+            addCart={this.addCart}
+            decCart={this.decCart}
         />
         
         

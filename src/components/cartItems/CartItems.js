@@ -107,9 +107,9 @@ export class CartItems extends Component {
 
         <div className='btnImg'>
           <div className='amountBtns'>
-            <button className='cartAmountBtn'>+</button>
+            <button className='cartAmountBtn' onClick={()=>props.addCart(props.index)}>+</button>
             <p className='cartAmount'>{props.itemQuantity}</p>
-            <button className='cartAmountBtn'>-</button>
+            <button className='cartAmountBtn' onClick={()=>props.decCart(props.index)}>-</button>
           </div>
           <div className='imgBtns'>
             <Link to="/product">
@@ -135,6 +135,9 @@ export class CartItems extends Component {
       currencySwitcher={this.props.currencySwitcher}
       itemId={this.props.itemId}
       changeProductId={this.props.changeProductId}
+      addCart={this.props.addCart}
+      decCart={this.props.decCart}
+      index={this.props.index}
     />
   }
 }

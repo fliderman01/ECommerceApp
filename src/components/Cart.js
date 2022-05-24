@@ -21,13 +21,16 @@ export default class Cart extends Component {
       <div className='cart'>
         <h2>CART</h2>
 
-        {infoMap.map((i)=>{
+        {infoMap.map((i, index)=>{
           return <CartItems
                     key={i.id}
                     itemId={i.id}
                     itemQuantity={i.quantity}
                     currencySwitcher={this.props.currencySwitcher}
                     changeProductId={this.props.changeProductId}
+                    addCart={this.props.addCart}
+                    decCart={this.props.decCart}
+                    index={index}
                   />
         })}
 
@@ -43,6 +46,7 @@ export default class Cart extends Component {
           </div>
 
           <div>
+            {/* in total() put value of total price as argument */}
             <p className='infoVal'>${total(200)}.00</p>
             <p className='infoVal'>{quantitySum()}</p>
             <p className='infoVal'>$244.11</p>

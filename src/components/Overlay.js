@@ -18,6 +18,7 @@ export default class Overlay extends Component {
         <div className='title'>
           <h6>My Bag, <span className='itemNum'>{quantitySum()} items</span></h6>
         </div>
+        {/* {console.log(infoMap, 'aaa')} */}
 
         {/* product description */}
         {infoMap.map((i, index)=>{
@@ -29,6 +30,8 @@ export default class Overlay extends Component {
               changeProductId={this.props.changeProductId}
               toggleOverlay={this.props.toggleOverlay}
               index={index}
+              addCart={this.props.addCart}
+              decCart={this.props.decCart}
             />
         })}
 
