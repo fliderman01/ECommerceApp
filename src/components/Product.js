@@ -100,7 +100,7 @@ export default class Product extends Component {
               //   }
               // }
               onClick={()=>{
-                changeCart(data.product.id, 1)
+                changeCart(data.product.id, 1, data.product.prices[currencySwitcher].amount)
               }}
               >
                 <Link className='routerLink' id='addLink' to="/">

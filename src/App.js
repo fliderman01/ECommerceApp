@@ -18,7 +18,7 @@ export default class App extends Component {
     this.state = {
        msg:'',
        currencySwitcher:0,
-       cart:[{id:'ps-5', quantity:3}], // empty string
+       cart:[{id:'ps-5', quantity:3, price:884.02}], // empty string
        peoductId:'',
        showOverlay:false
       }
@@ -43,13 +43,6 @@ export default class App extends Component {
         cart:[]
       })
     }
-    // add item (quantity) to cart
-    // addItem = (id) => {
-    //   // this.state.cart.map(i => i.id === id && i.quantity + 1)
-    //   this.setState({
-    //     cart: this.state.cart.map(i=>i.id===id && i.quantity +1)
-    //   })
-    // }
     // increase quantity in cart
     addCart = (index) => {
       if (this.state.cart) {
@@ -70,22 +63,28 @@ export default class App extends Component {
         this.setState({cart: temp_state });
       }
       // del element from array
-      if (this.state.cart[index].quantity<1){
-        // let temp_state = [...this.state.cart];
-        // const newState = temp_state.filter((_, i) => i !== index);
-        this.setState({cart: []})
+      if (this.state.cart[index].quantity<2){
+        let temp_state = [...this.state.cart];
+        const newState = temp_state.filter((_, i) => i !== index); // what does "_" mean?
+        this.setState({cart: newState})
       }
     }
 
   render() {
-    console.log(this.state.cart[0].quantity, 'nikita')
+    // calculate price * quantity
+    const sumTotalPrice = this.state.cart.map((i) => {
+      const bb = i.price * i.quantity;
+      return bb
+    });
+    console.log(this.state.cart, 'nikita')
 
     // add items to cart
-    const changeCart = (id, quantity) => {
+    const changeCart = (id, quantity, price) => {
       this.setState({
           cart: [...this.state.cart, {
             id: id,
-            quantity: quantity
+            quantity: quantity,
+            price: price
           }]
         });
     }
@@ -110,7 +109,6 @@ export default class App extends Component {
         <div className='overlay'></div>
         {/* delete afther finish */}
         <button onClick={()=>this.addItem('ps-5')}>+</button>
-        <button onClick={()=>this.decCart(0)}>+item</button>
 
         <Routes>
           <Route index element={<Category
@@ -132,6 +130,7 @@ export default class App extends Component {
                                             emptyCart={this.emptyCart}
                                             addCart={this.addCart}
                                             decCart={this.decCart}
+                                            sum={sumTotalPrice}
                                           />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
@@ -145,6 +144,7 @@ export default class App extends Component {
             emptyCart={this.emptyCart}
             addCart={this.addCart}
             decCart={this.decCart}
+            sum={sumTotalPrice}
         />
         
         

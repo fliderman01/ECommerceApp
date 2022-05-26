@@ -40,7 +40,7 @@ export default class Overlay extends Component {
         {/* price */}
           <div className='price'>
             <p className='totalPrice'>Total</p>
-            <p className='totalPrice'>$200.00</p>
+            <p className='totalPrice'>${this.props.sum.reduce((a, b) => a + b, 0).toFixed(2)}</p>
           </div>
           {/* bag buttons */}
           <div className='bag'>

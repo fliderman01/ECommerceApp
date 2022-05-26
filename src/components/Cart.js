@@ -13,9 +13,11 @@ export default class Cart extends Component {
     }
     // calculate Tax 21%
     const total = (total) => {
-      const result = Math.round((21 * total) / 100)
-      return result;
+      const result = (21 * total) / 100
+      return result.toFixed(2);
     }
+    //sum of const sum items
+    const totalPrice = this.props.sum.reduce((a, b) => a + b, 0);
 
     return (
       <div className='cart'>
@@ -46,10 +48,9 @@ export default class Cart extends Component {
           </div>
 
           <div>
-            {/* in total() put value of total price as argument */}
-            <p className='infoVal'>${total(200)}.00</p>
+            <p className='infoVal'>${total(totalPrice)}</p>
             <p className='infoVal'>{quantitySum()}</p>
-            <p className='infoVal'>$244.11</p>
+            <p className='infoVal'>${totalPrice.toFixed(2)}</p>
           </div>
         </div>
          
