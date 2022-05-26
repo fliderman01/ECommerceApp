@@ -76,17 +76,25 @@ export default class App extends Component {
       const bb = i.price * i.quantity;
       return bb
     });
-    console.log(this.state.cart, 'nikita')
 
     // add items to cart
     const changeCart = (id, quantity, price) => {
-      this.setState({
-          cart: [...this.state.cart, {
-            id: id,
-            quantity: quantity,
-            price: price
-          }]
-        });
+      // are duplicate items in cart?
+      const isItemInCart = this.state.cart.find(i=>i.id === id);
+      // if cart has duplicate item, increase items quantity, else add item 
+      if (isItemInCart) {
+        this.setState({
+          cart: this.state.cart.map(i=>i.id===id?{...i, quantity: i.quantity + 1} : i)
+        })
+      } else {
+        this.setState({
+            cart: [...this.state.cart, {
+              id: id,
+              quantity: quantity,
+              price: price
+            }]
+          });
+      }
     }
     // change id of item in Product
     const changeProductId = (data) => {
