@@ -69,6 +69,20 @@
     cursor: pointer;
 }
 
+.numOfItems{
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    background-color: #1D1F22;
+    color: #FFFFFF;
+    border-radius: 44px;
+    position: absolute;
+    right: 111px;
+    top: 21px;
+}
+
 /* overlay */
 .overlay {
     display: none;

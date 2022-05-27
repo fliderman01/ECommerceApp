@@ -6,22 +6,16 @@ import './overlay.css';
 
 export default class Overlay extends Component {
   render() {
-    const infoMap = this.props.cart;
-    // items total quantity
-    const quantitySum = () => {
-      const quantity = infoMap.map(i=>i.quantity);
-      return quantity.reduce((a, b) => a + b, 0);
-    }
+
     return (
       <aside style={{display: this.props.showOverlay ? 'initial' : 'none'}}>
         {/* title */}
         <div className='title'>
-          <h6>My Bag, <span className='itemNum'>{quantitySum()} items</span></h6>
+          <h6>My Bag, <span className='itemNum'>{this.props.quantitySum()} items</span></h6>
         </div>
-        {/* {console.log(infoMap, 'aaa')} */}
 
         {/* product description */}
-        {infoMap.map((i, index)=>{
+        {this.props.cart.map((i, index)=>{
           return <OverlayItems
               key={i.id}
               itemId={i.id}

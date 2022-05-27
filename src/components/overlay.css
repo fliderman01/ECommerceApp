@@ -4,6 +4,7 @@ aside {
     left: 1043px;
     top: 78px;
     min-width: 325px;
+    max-height: 688px;
     padding: 0px 7px 32px 7px;
     background-color: #FFFFFF;
     z-index: 1;

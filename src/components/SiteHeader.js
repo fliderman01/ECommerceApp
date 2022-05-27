@@ -65,7 +65,9 @@ export class SiteHeader extends Component {
                       alt='Shopping wheel'
                       style={{width:'37px'}}
                       onClick={()=>props.toggleOverlay()}
+                      // onMouseLeave={()=>props.hideOverlay()}
                     />
+                    {props.quantitySum() ? <div className='numOfItems'>{props.quantitySum()}</div> : null}
                 </div>
               </div>
       }
@@ -79,6 +81,8 @@ export class SiteHeader extends Component {
                 currencySwitch={this.props.currencySwitch}
                 toggleOverlay={this.props.toggleOverlay}
                 currencySwitcher={this.props.currencySwitcher}
+                quantitySum={this.props.quantitySum}
+                hideOverlay={this.props.hideOverlay}
             />
           </>
       )  

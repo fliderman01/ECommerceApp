@@ -5,12 +5,6 @@ import { Link } from 'react-router-dom';
 
 export default class Cart extends Component {
   render() {
-    const infoMap = this.props.cart;
-    // total quantity of items
-    const quantitySum = () => {
-      const quantity = infoMap.map(i=>i.quantity);
-      return quantity.reduce((a, b) => a + b, 0);
-    }
     // calculate Tax 21%
     const total = (total) => {
       const result = (21 * total) / 100
@@ -23,7 +17,7 @@ export default class Cart extends Component {
       <div className='cart'>
         <h2>CART</h2>
 
-        {infoMap.map((i, index)=>{
+        {this.props.cart.map((i, index)=>{
           return <CartItems
                     key={i.id}
                     itemId={i.id}
@@ -49,7 +43,7 @@ export default class Cart extends Component {
 
           <div>
             <p className='infoVal'>${total(totalPrice)}</p>
-            <p className='infoVal'>{quantitySum()}</p>
+            <p className='infoVal'>{this.props.quantitySum()}</p>
             <p className='infoVal'>${totalPrice.toFixed(2)}</p>
           </div>
         </div>

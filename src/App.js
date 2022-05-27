@@ -18,7 +18,7 @@ export default class App extends Component {
     this.state = {
        msg:'',
        currencySwitcher:0,
-       cart:[{id:'ps-5', quantity:3, price:884.02}], // empty string
+       cart:[],
        peoductId:'',
        showOverlay:false
       }
@@ -36,6 +36,20 @@ export default class App extends Component {
       this.setState({
         showOverlay: !this.state.showOverlay
       })
+    }
+    // hide overlay
+    hideOverlay = () => {
+      this.setState({
+        showOverlay: false
+      })
+      console.log('hii')
+    }
+    // show overlay
+    showOverlay = () => {
+      this.setState({
+        showOverlay: true
+      })
+      console.log('mela')
     }
     // empty cart (on order or check out)
     emptyCart = () => {
@@ -76,6 +90,11 @@ export default class App extends Component {
       const bb = i.price * i.quantity;
       return bb
     });
+    // items total quantity
+    const quantitySum = () => {
+      const quantity = this.state.cart.map(i=>i.quantity);
+      return quantity.reduce((a, b) => a + b, 0);
+    }
 
     // add items to cart
     const changeCart = (id, quantity, price) => {
@@ -113,6 +132,7 @@ export default class App extends Component {
           currencySwitch={this.currencySwitch}
           toggleOverlay={this.toggleOverlay}
           currencySwitcher={this.state.currencySwitcher}
+          quantitySum={quantitySum}
         />
         <div className='overlay'></div>
         {/* delete afther finish */}
@@ -139,6 +159,7 @@ export default class App extends Component {
                                             addCart={this.addCart}
                                             decCart={this.decCart}
                                             sum={sumTotalPrice}
+                                            quantitySum={quantitySum}
                                           />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
@@ -153,6 +174,7 @@ export default class App extends Component {
             addCart={this.addCart}
             decCart={this.decCart}
             sum={sumTotalPrice}
+            quantitySum={quantitySum}
         />
         
         
@@ -161,3 +183,4 @@ export default class App extends Component {
     )
   }
 }
+// reference, (delete after finish) https://github.com/weibenfalk/react-shopping-cart/tree/main/src

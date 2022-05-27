@@ -12,8 +12,6 @@ export default class category extends Component {
     function CategoryFunct(props) {
       // console.log(props.currencySwitcher, 'currency')
       const [cartData, setCartData] = useState([]);
-      // do delete duplicate items & increase quantity here
-      console.log(cartData, 'carto')
 
     const PRODUCT_CATEGORIES = gql`
     query GetRates {
