@@ -35,7 +35,7 @@ export class SiteHeader extends Component {
         const { loading, error, data } = useQuery(CATEG_CURRENCIES);
         const [showCurrency, setShowCurrency] = useState(true);
   
-        // switch / set currency (is error because this and above (localStorage) change currency concurently?(DELETE THIS))
+        // switch / set currency
         const currencyFuncts = (index) => {
           // setCurrency(index);
           setShowCurrency(true);
@@ -50,13 +50,18 @@ export class SiteHeader extends Component {
                     <p onClick={()=>{sendData(name);}} key={name}>{name}</p>
                   ))}
                 </div>
-                <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' onClick={()=>props.toggleOverlay()} /></Link>
+                <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' onClick={()=>props.hideOverlay()} /></Link>
                 <div className='actions'>
                   <span className='currencySwitch' onBlur={()=>setShowCurrency(!showCurrency)} onClick={()=>setShowCurrency(!showCurrency)} >{data.currencies[props.currencySwitcher].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
                   <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
                     <ul>
                       {data.currencies.map(({label, symbol}, index)=>(
-                        <li key={index} onClick={()=>currencyFuncts(index)} >{symbol} {label}</li>
+                        <li
+                          key={index}
+                          onClick={()=>{currencyFuncts(index); props.categSymbol(symbol)}}
+                        >
+                          {symbol} {label}
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -83,6 +88,7 @@ export class SiteHeader extends Component {
                 currencySwitcher={this.props.currencySwitcher}
                 quantitySum={this.props.quantitySum}
                 hideOverlay={this.props.hideOverlay}
+                categSymbol={this.props.categSymbol}
             />
           </>
       )  

@@ -20,8 +20,13 @@ export default class App extends Component {
        currencySwitcher:0,
        cart:[],
        peoductId:'',
-       showOverlay:false
+       showOverlay:false,
+       currencySymbol:'$'
       }
+    };
+    // change currency symbol (for Product)
+    categSymbol = (Data) => {
+      this.setState({currencySymbol: Data})
     };
     // change category
     categInfo = (Data) => {
@@ -110,7 +115,8 @@ export default class App extends Component {
             cart: [...this.state.cart, {
               id: id,
               quantity: quantity,
-              price: price
+              price: price,
+              attributes: {}
             }]
           });
       }
@@ -133,10 +139,10 @@ export default class App extends Component {
           toggleOverlay={this.toggleOverlay}
           currencySwitcher={this.state.currencySwitcher}
           quantitySum={quantitySum}
+          hideOverlay={this.hideOverlay}
+          categSymbol={this.categSymbol}
         />
         <div className='overlay'></div>
-        {/* delete afther finish */}
-        <button onClick={()=>this.addItem('ps-5')}>+</button>
 
         <Routes>
           <Route index element={<Category
@@ -150,7 +156,7 @@ export default class App extends Component {
                                             currencySwitcher={this.state.currencySwitcher}
                                             productId={this.state.productId}
                                             changeCart={changeCart}
-                                          />} />
+                                            />} />
           <Route path="cart" element={<Cart
                                             currencySwitcher={this.state.currencySwitcher}
                                             changeProductId={changeProductId}
@@ -160,6 +166,7 @@ export default class App extends Component {
                                             decCart={this.decCart}
                                             sum={sumTotalPrice}
                                             quantitySum={quantitySum}
+                                            symbol={this.state.currencySymbol}
                                           />} />
           <Route path="*" element={<NoPage />} />
         </Routes>

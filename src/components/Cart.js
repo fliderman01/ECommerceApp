@@ -42,9 +42,9 @@ export default class Cart extends Component {
           </div>
 
           <div>
-            <p className='infoVal'>${total(totalPrice)}</p>
+            <p className='infoVal'>{this.props.symbol}{total(totalPrice)}</p>
             <p className='infoVal'>{this.props.quantitySum()}</p>
-            <p className='infoVal'>${totalPrice.toFixed(2)}</p>
+            <p className='infoVal'>{this.props.symbol}{totalPrice.toFixed(2)}</p>
           </div>
         </div>
          

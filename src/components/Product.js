@@ -8,7 +8,6 @@ import {
 
 export default class Product extends Component {
   render() {
-    // console.log(this.props.currencySwitcher, 'Mercedez')
     // "huarache-x-stussy-le", "jacket-canada-goosee", "ps-5", "xbox-series-s", "apple-imac-2021", "apple-iphone-12-pro", "apple-airpods-pro", "apple-airtag"
 
     const PRODUCT_INFO = gql`
@@ -39,14 +38,16 @@ export default class Product extends Component {
     }
   `;
   function ProductFunct({currencySwitcher, changeCart}) {
-    // const [attrBtn, setAttrBtn] = useState('')
     const { loading, error, data } = useQuery(PRODUCT_INFO);
+    // const [attr, setAttr] = useState({})
+    // const [opts, setOpts] = useState[data.product.attributes.map(i=>i.name)]
+    // console.log(opts, 'optInfo')
     const [mainPic, setMainPic] = useState('');
     // const [cartData, setCartData] = useState([]);
-    // console.log(cartData, 'info')
-
+    
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
+    
 
     return <div className='Product'>
             <div className='miniContainer'>
@@ -75,11 +76,15 @@ export default class Product extends Component {
                         </li>
                       ))
                       :
-                      item.items.map(val=>(
+                      item.items.map((val)=>(
                         // <li><button className='sizeBtn'>{val.displayValue}</button></li>
                         <li key={val.value}>
                           <label className='productLabel'>
-                            <input className='colBtn' type='radio' name='attrChoice' />
+                            <input
+                                className='colBtn'
+                                type='radio'
+                                name='attrChoice'
+                            />
                             {val.displayValue}
                           </label>
                         </li>
@@ -91,14 +96,6 @@ export default class Product extends Component {
               <p className='priceSize'>PRICE:</p>
               <p className='itemPrice'>{data.product.prices[currencySwitcher].currency.symbol}{data.product.prices[currencySwitcher].amount}</p>
               <button className='addBtn'
-              // onClick={
-              //   ()=>{
-              //     setCartData([...cartData, {
-              //       id: data.product.id,
-              //       quantity: 1
-              //     }])
-              //   }
-              // }
               onClick={()=>{
                 changeCart(data.product.id, 1, data.product.prices[currencySwitcher].amount)
               }}
@@ -116,7 +113,10 @@ export default class Product extends Component {
   }
   return (
     <>
-      <ProductFunct currencySwitcher={this.props.currencySwitcher} changeCart={this.props.changeCart} />
+      <ProductFunct
+        currencySwitcher={this.props.currencySwitcher}
+        changeCart={this.props.changeCart}
+      />
     </>
     )
   }
