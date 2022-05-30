@@ -4,8 +4,11 @@
     align-items: center;
     height: 80px; 
     padding: 0 111px;
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     border: 1px solid #1D1F22;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .category {
@@ -85,7 +88,7 @@
 
 /* overlay */
 .overlay {
-    display: none;
+    /* display: initial; */
     position: fixed;
     width: 100%;
     height: 100%;
@@ -96,7 +99,7 @@
     background-color: rgba(57, 55, 72, 0.22);
   }
 
-  /* misealaneaeous(?) */
+  /* miscellaneous */
   
 
 .routerLink {

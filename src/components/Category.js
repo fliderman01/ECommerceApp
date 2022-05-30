@@ -8,7 +8,7 @@ import {
 } from '@apollo/client';
 
 export default class category extends Component {
-  render(props) {
+  render() {
     function CategoryFunct(props) {
       // console.log(props.currencySwitcher, 'currency')
       const [cartData, setCartData] = useState([]);
@@ -43,9 +43,6 @@ export default class category extends Component {
       <main>
       <h2 className='categoryName'>{data.category.name}</h2>
       <div className='categoryContainer'>
-        {/* display initial if that btn is clicked */}
-        <div className='overlay' style={{display: 'none'}}></div>
-
           {data.category.products.map(({id, name, inStock, gallery, prices})=>(
             <section key={id}>
                 <Link className='routerLink linkB' to={inStock ? "/product" : "/"}>
@@ -53,6 +50,7 @@ export default class category extends Component {
                     onMouseOver={()=>setShowBtn(true)}
                     onMouseOut={()=>setShowBtn(false)}
                     src={gallery[0]} alt={name}
+                    // opacity here causes white border in overlay
                     style={{width: '356px', height: '338px', opacity: inStock ? '1' : '.5', cursor: 'pointer'}}
                     onClick={()=>props.changeProductId(id)}
                   />
@@ -83,6 +81,7 @@ export default class category extends Component {
         currencySwitcher={this.props.currencySwitcher}
         sendCartData={this.props.sendCartData}
         changeProductId={this.props.changeProductId}
+        // showOverlay={this.props.showOverlay}
       />
     </>
     )

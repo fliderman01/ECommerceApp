@@ -142,8 +142,21 @@ export default class App extends Component {
           hideOverlay={this.hideOverlay}
           categSymbol={this.categSymbol}
         />
-        <div className='overlay'></div>
+        <div className='overlay' style={{display: this.state.showOverlay ? 'initial' : 'none'}}></div>
 
+        <Overlay
+            currencySwitcher={this.state.currencySwitcher}
+            changeProductId={changeProductId}
+            cart={this.state.cart}
+            showOverlay={this.state.showOverlay}
+            toggleOverlay={this.toggleOverlay}
+            emptyCart={this.emptyCart}
+            addCart={this.addCart}
+            decCart={this.decCart}
+            sum={sumTotalPrice}
+            quantitySum={quantitySum}
+        />
+        
         <Routes>
           <Route index element={<Category
             categ={this.state.msg}
@@ -151,6 +164,7 @@ export default class App extends Component {
             // cart={this.state.cart}
             changeCart={changeCart}
             changeProductId={changeProductId}
+            // showOverlay={this.state.showOverlay}
         />} />
           <Route path="product" element={<Product
                                             currencySwitcher={this.state.currencySwitcher}
@@ -169,22 +183,7 @@ export default class App extends Component {
                                             symbol={this.state.currencySymbol}
                                           />} />
           <Route path="*" element={<NoPage />} />
-        </Routes>
-
-        <Overlay
-            currencySwitcher={this.state.currencySwitcher}
-            changeProductId={changeProductId}
-            cart={this.state.cart}
-            showOverlay={this.state.showOverlay}
-            toggleOverlay={this.toggleOverlay}
-            emptyCart={this.emptyCart}
-            addCart={this.addCart}
-            decCart={this.decCart}
-            sum={sumTotalPrice}
-            quantitySum={quantitySum}
-        />
-        
-        
+        </Routes>        
         
       </BrowserRouter>
     )

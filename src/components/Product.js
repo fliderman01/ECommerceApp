@@ -40,7 +40,7 @@ export default class Product extends Component {
   function ProductFunct({currencySwitcher, changeCart}) {
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     // const [attr, setAttr] = useState({})
-    // const [opts, setOpts] = useState[data.product.attributes.map(i=>i.name)]
+    // const [opts, setOpts] = useState([data.product.name])
     // console.log(opts, 'optInfo')
     const [mainPic, setMainPic] = useState('');
     // const [cartData, setCartData] = useState([]);
