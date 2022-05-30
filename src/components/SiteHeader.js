@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useRef, useEffect } from 'react';
 import '../app.css';
 import svg3 from '../icons/svg3.svg';
 import vectorUp from '../icons/VectorUp.png';
@@ -9,9 +9,10 @@ import {
     gql,
   } from '@apollo/client';
 
-export class SiteHeader extends Component {
-  render() {
-    function Header(props) {      
+  
+  export class SiteHeader extends Component {
+    render() {
+      function Header(props) {      
         // category filter
         const sendData = (info) => {
           props.categInfo(info);
@@ -20,20 +21,34 @@ export class SiteHeader extends Component {
         const sendSwitchData = (info) => {
           props.currencySwitch(info)
         }
-  
+        
         const CATEG_CURRENCIES = gql`
-          query GetRates {
-            categories{
-              name
-            }
-            currencies{
-              label
-              symbol
-            }
+        query GetRates {
+          categories{
+            name
           }
+          currencies{
+            label
+            symbol
+          }
+        }
         `;
         const { loading, error, data } = useQuery(CATEG_CURRENCIES);
         const [showCurrency, setShowCurrency] = useState(true);
+        // hide currency siwtcher on outside click
+        let menuRef = useRef();
+        useEffect(() => {
+          document.addEventListener("mousedown", (event) => {
+            if (!menuRef.current.contains(event.target)) {
+              setShowCurrency(true);
+            }
+            document.addEventListener('mousedown', menuRef);
+      
+            return () => {
+              document.removeEventListener('mousedown', menuRef);
+            };
+          });
+        });
   
         // switch / set currency
         const currencyFuncts = (index) => {
@@ -50,9 +65,19 @@ export class SiteHeader extends Component {
                     <p onClick={()=>{sendData(name);}} key={name}>{name}</p>
                   ))}
                 </div>
-                <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' onClick={()=>props.hideOverlay()} /></Link>
+                <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' /></Link>
                 <div className='actions'>
-                  <span className='currencySwitch' onBlur={()=>setShowCurrency(!showCurrency)} onClick={()=>setShowCurrency(!showCurrency)} >{data.currencies[props.currencySwitcher].symbol} <img src={vectorUp} alt='arrow up' style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}} /></span>
+                  <div
+                    className='currencySwitch'
+                    onClick={()=>setShowCurrency(!showCurrency)}
+                    ref={menuRef}
+                  >
+                    {data.currencies[props.currencySwitcher].symbol}
+                    <img
+                      src={vectorUp}
+                      alt='arrow up'
+                      style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}}
+                    />
                   <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
                     <ul>
                       {data.currencies.map(({label, symbol}, index)=>(
@@ -65,6 +90,7 @@ export class SiteHeader extends Component {
                       ))}
                     </ul>
                   </div>
+                      </div>
                     <img
                       src={Vector}
                       alt='Shopping wheel'
@@ -87,7 +113,7 @@ export class SiteHeader extends Component {
                 toggleOverlay={this.props.toggleOverlay}
                 currencySwitcher={this.props.currencySwitcher}
                 quantitySum={this.props.quantitySum}
-                hideOverlay={this.props.hideOverlay}
+                // hideOverlay={this.props.hideOverlay}
                 categSymbol={this.props.categSymbol}
             />
           </>
