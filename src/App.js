@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Cart from './components/Cart';
 import Category from './components/Category';
 import SiteHeader from './components/SiteHeader';
-import Overlay from './components/Overlay';
+// import Overlay from './components/Overlay';
 import Product from './components/Product';
 import NoPage from './components/NoPage';
 import './app.css';
@@ -21,8 +21,7 @@ export default class App extends Component {
        msg:'',
        currencySwitcher:0,
        cart:[],
-       peoductId:'',
-       showOverlay:false,
+       productId:'huarache-x-stussy-le',
        currencySymbol:'$'
       }
     };
@@ -38,26 +37,6 @@ export default class App extends Component {
     currencySwitch = (Data) => {
       this.setState({currencySwitcher: Data})
   };
-    // show / hide overlay
-    toggleOverlay = () => {
-      this.setState({
-        showOverlay: !this.state.showOverlay
-      })
-    }
-    // hide overlay
-    hideOverlay = () => {
-      this.setState({
-        showOverlay: false
-      })
-      console.log('hii')
-    }
-    // show overlay
-    showOverlay = () => {
-      this.setState({
-        showOverlay: true
-      })
-      console.log('mela')
-    }
     // empty cart (on order or check out)
     emptyCart = () => {
       this.setState({
@@ -143,30 +122,21 @@ export default class App extends Component {
           quantitySum={quantitySum}
           hideOverlay={this.hideOverlay}
           categSymbol={this.categSymbol}
-        />
-        <div className='overlay' style={{display: this.state.showOverlay ? 'initial' : 'none'}}></div>
-
-        <Overlay
-            currencySwitcher={this.state.currencySwitcher}
-            changeProductId={changeProductId}
-            cart={this.state.cart}
-            showOverlay={this.state.showOverlay}
-            toggleOverlay={this.toggleOverlay}
-            emptyCart={this.emptyCart}
-            addCart={this.addCart}
-            decCart={this.decCart}
-            sum={sumTotalPrice}
-            quantitySum={quantitySum}
+          // for overlay
+          changeProductId={changeProductId}
+          cart={this.state.cart}
+          emptyCart={this.emptyCart}
+          addCart={this.addCart}
+          decCart={this.decCart}
+          sum={sumTotalPrice}
         />
         
         <Routes>
           <Route index element={<Category
             categ={this.state.msg}
             currencySwitcher={this.state.currencySwitcher}
-            // cart={this.state.cart}
             changeCart={changeCart}
             changeProductId={changeProductId}
-            // showOverlay={this.state.showOverlay}
         />} />
           <Route path="product" element={<Product
                                             currencySwitcher={this.state.currencySwitcher}

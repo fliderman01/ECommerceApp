@@ -40,10 +40,16 @@ export default class Product extends Component {
   function ProductFunct({currencySwitcher, changeCart}) {
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     // const [attr, setAttr] = useState({})
-    // const [opts, setOpts] = useState([data.product.name])
+    const [opts, setOpts] = useState([])
     // console.log(opts, 'optInfo')
     const [mainPic, setMainPic] = useState('');
     // const [cartData, setCartData] = useState([]);
+
+    const addOpts = (attr, attrId) => {
+      if (opts.filter((i)=> attr !== i.attr)) {setOpts([...opts, {attr:attr, attrId:attrId}]);}
+      // if (opts.filter((i)=> attrId === i.attrId)) {setOpts([opts.map(i=>i.attrId===attrId ? {...i, attr:attr} : i)]);}
+    }
+    console.log(opts, 'muskulebi')
     
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
@@ -71,7 +77,7 @@ export default class Product extends Component {
                         // <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
                         <li key={val.value}>
                           <label className='radioLabel' style={{backgroundColor: val.value}}>
-                            <input className='colBtn' type='radio' name='color' />4
+                            <input onChange={()=>addOpts(val.value, item.id)} className='colBtn' type='radio' name='color' />4
                           </label>
                         </li>
                       ))
@@ -84,6 +90,7 @@ export default class Product extends Component {
                                 className='colBtn'
                                 type='radio'
                                 name='attrChoice'
+                                onChange={()=>addOpts(val.value, item.id)}
                             />
                             {val.displayValue}
                           </label>

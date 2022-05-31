@@ -56,12 +56,12 @@ export class OverlayItems extends Component {
                             item.id === 'Color'
                             ?
                             item.items.map(val=>(
-                                <li className='descriptionListColor'><button style={{backgroundColor: val.value}}></button></li>
+                                <li key={val.id} className='descriptionListColor'><button style={{backgroundColor: val.value}}></button></li>
                                 // <li key={val.value}><label className='radioLabel' style={{backgroundColor: val.value}}><input className='colBtn' type='radio' name='color' /></label></li>
                             ))
                             :
                             item.items.map(val=>(
-                                <li className='descriptionListSize'><button>{val.displayValue}</button></li>
+                                <li key={val.id} className='descriptionListSize'><button>{val.displayValue}</button></li>
                                 // <li key={val.value}><input className='sizeBtn' type='radio' name='attrChoice' value={val.displayValue} /></li>
                             ))
                             }
@@ -82,7 +82,7 @@ export class OverlayItems extends Component {
                     src={data.product.gallery[0]}
                     alt='Item'
                     style={{ height: '190px'}}
-                    onClick={()=>{props.changeProductId(props.itemId); props.toggleOverlay()}}
+                    onClick={()=>props.changeProductId(props.itemId)}
                   />
                 </Link>
               </div>

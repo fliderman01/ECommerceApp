@@ -1,5 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import '../app.css';
+import Overlay from './Overlay';
 import svg3 from '../icons/svg3.svg';
 import vectorUp from '../icons/VectorUp.png';
 import Vector from '../icons/shopping.png';
@@ -35,12 +36,22 @@ import {
         `;
         const { loading, error, data } = useQuery(CATEG_CURRENCIES);
         const [showCurrency, setShowCurrency] = useState(true);
-        // hide currency siwtcher on outside click
+        const [showOverlay, setShowOverlay] = useState(false);
+        // toggle overlay
+        const toggleOverlay = () => {
+          setShowOverlay(!showOverlay);
+        }
+        // toggle overlay
+        // const hideOverlay = () => {
+        //   setShowOverlay(false);
+        // }
+        // hide currency siwtcher and overlay on outside click
         let menuRef = useRef();
         useEffect(() => {
           document.addEventListener("mousedown", (event) => {
             if (!menuRef.current.contains(event.target)) {
               setShowCurrency(true);
+              // hideOverlay();
             }
             document.addEventListener('mousedown', menuRef);
       
@@ -91,15 +102,30 @@ import {
                     </ul>
                   </div>
                       </div>
-                    <img
-                      src={Vector}
-                      alt='Shopping wheel'
-                      style={{width:'37px'}}
-                      onClick={()=>props.toggleOverlay()}
-                      // onMouseLeave={()=>props.hideOverlay()}
-                    />
-                    {props.quantitySum() ? <div className='numOfItems'>{props.quantitySum()}</div> : null}
+                      <div ref={menuRef}>
+                        <Overlay
+                            currencySwitcher={props.currencySwitcher}
+                            changeProductId={props.changeProductId}
+                            cart={props.cart}
+                            showOverlay={showOverlay}
+                            toggleOverlay={toggleOverlay}
+                            emptyCart={props.emptyCart}
+                            addCart={props.addCart}
+                            decCart={props.decCart}
+                            sum={props.sum}
+                            quantitySum={props.quantitySum}
+                        />
+                        <img
+                          src={Vector}
+                          alt='Shopping wheel'
+                          style={{width:'37px'}}
+                          onClick={()=>toggleOverlay()}
+                          // onMouseLeave={()=>props.hideOverlay()}
+                        />
+                        {props.quantitySum() ? <div className='numOfItems'>{props.quantitySum()}</div> : null}
+                      </div>
                 </div>
+                <div className='overlay' style={{display: showOverlay ? 'initial' : 'none'}}></div>
               </div>
       }
   
@@ -115,7 +141,15 @@ import {
                 quantitySum={this.props.quantitySum}
                 // hideOverlay={this.props.hideOverlay}
                 categSymbol={this.props.categSymbol}
+                // overlay
+                changeProductId={this.props.changeProductId}
+                cart={this.props.cart}
+                emptyCart={this.props.emptyCart}
+                addCart={this.props.addCart}
+                decCart={this.props.decCart}
+                sum={this.props.sum}
             />
+            
           </>
       )  
   }
