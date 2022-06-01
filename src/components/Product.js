@@ -45,11 +45,27 @@ export default class Product extends Component {
     const [mainPic, setMainPic] = useState('');
     // const [cartData, setCartData] = useState([]);
 
+    // add attribute options to opts
     const addOpts = (attr, attrId) => {
-      if (opts.filter((i)=> attr !== i.attr)) {setOpts([...opts, {attr:attr, attrId:attrId}]);}
-      // if (opts.filter((i)=> attrId === i.attrId)) {setOpts([opts.map(i=>i.attrId===attrId ? {...i, attr:attr} : i)]);}
+      // on first click add default values from select and...
+      let num = 1
+      if (num === 1) {
+        // setOpts([{attr: data.product.attributes.map(i=>i.items[0].value), attrId:data.product.attributes.map(i=>i.id)}])
+        // setOpts([{data.product.attributes.map(i=>attr: i.items[0].value, attrId: i.id)}])
+        num = 0;
+      }
+      // ...then change attributes
+      // if this works delete length 0 condition
+      if (opts.length === 0 || opts.every((i)=> attrId !== i.attrId)) {setOpts([...opts, {attr:attr, attrId:attrId}]);}
+      if (opts.some((i)=> attrId === i.attrId)) {
+        const sameVal = opts.find(i=>i.attrId===attrId);
+        sameVal.attr = attr;
+        const delVal = opts.findIndex(i=>i.attrId===sameVal.attrId);
+        opts.splice(delVal, 1, sameVal);
+        // console.log(opts, 'vikonsolebi')
+      }
     }
-    console.log(opts, 'muskulebi')
+    // console.log(opts, 'muskulebi')
     
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
