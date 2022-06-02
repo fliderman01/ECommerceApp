@@ -5,6 +5,7 @@ import {
     useQuery,
     gql,
   } from '@apollo/client';
+// import Cart from '../Cart';
 
 export class OverlayItems extends Component {
   render() {
@@ -35,6 +36,19 @@ export class OverlayItems extends Component {
     }
   `;
   function OverlayItemsFunct(props) {
+    // give attributes check value
+    // const checking =(index, attr, attrId)=>{
+    //   const thisCart = props.cart.filter(i=>i.id===props.itemId)
+    //   const attrs = thisCart[0].attributes[0].map(i=>i.attr);
+    //   const attrIds = thisCart[0].attributes[0].filter(i=>i.attrId === attrId);
+    //   if (attrIds.length !== 0 && attrIds[0].attr === attr) {
+    //     return true
+    //   } else if (attrs.some(i=>i !== attr) && index===0){
+    //     return true
+    //   } else if (attrs.length===0 && index===0){
+    //     return true
+    //   }
+    // }
     const { loading, error, data } = useQuery(PRODUCT_INFO);
 
     if (loading) return <p>Loading...</p>;
@@ -55,14 +69,35 @@ export class OverlayItems extends Component {
                             {
                             item.id === 'Color'
                             ?
-                            item.items.map(val=>(
-                                <li key={val.id} className='descriptionListColor'><button style={{backgroundColor: val.value}}></button></li>
-                                // <li key={val.value}><label className='radioLabel' style={{backgroundColor: val.value}}><input className='colBtn' type='radio' name='color' /></label></li>
+                            item.items.map((val, index)=>(
+                                // <li key={val.id} className='descriptionListColor'><button style={{backgroundColor: val.value}}></button></li>
+                                <li key={val.value}>
+                                  <input
+                                    className='radioInpBtn'
+                                    type='radio'
+                                    name={item.name}
+                                    checked={props.checking(index, val.value, item.id, props.itemId)}
+                                  />
+                                  <label
+                                    className='radioLabel'
+                                    style={{backgroundColor: val.value}}
+                                  >
+                                  </label>
+                                </li>
                             ))
                             :
-                            item.items.map(val=>(
-                                <li key={val.id} className='descriptionListSize'><button>{val.displayValue}</button></li>
-                                // <li key={val.value}><input className='sizeBtn' type='radio' name='attrChoice' value={val.displayValue} /></li>
+                            item.items.map((val, index)=>(
+                                // <li key={val.id} className='descriptionListSize'><button>{val.displayValue}</button></li>
+                                <li key={val.value}>
+                                  <input
+                                    className='radioInpBtn'
+                                    type='radio'
+                                    name={item.name}
+                                    // value={val.displayValue}
+                                    checked={props.checking(index, val.value, item.id, props.itemId)}
+                                  />
+                                  <label className='radioSizeLabel'>{val.value}</label>
+                                </li>
                             ))
                             }
                         </ul>
@@ -98,6 +133,8 @@ export class OverlayItems extends Component {
       addCart={this.props.addCart}
       decCart={this.props.decCart}
       index={this.props.index}
+      cart={this.props.cart}
+      checking={this.props.checking}
     />
     }
 }

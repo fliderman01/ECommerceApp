@@ -114,6 +114,7 @@ import {
                             decCart={props.decCart}
                             sum={props.sum}
                             quantitySum={props.quantitySum}
+                            checking={props.checking}
                         />
                         <img
                           src={Vector}
@@ -148,6 +149,7 @@ import {
                 addCart={this.props.addCart}
                 decCart={this.props.decCart}
                 sum={this.props.sum}
+                checking={this.props.checking}
             />
             
           </>

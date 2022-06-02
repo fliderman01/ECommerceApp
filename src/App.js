@@ -73,8 +73,8 @@ export default class App extends Component {
   render() {
     // calculate price * quantity
     const sumTotalPrice = this.state.cart.map((i) => {
-      const bb = i.price * i.quantity;
-      return bb
+      const total = i.price * i.quantity;
+      return total
     });
     // items total quantity
     const quantitySum = () => {
@@ -83,7 +83,7 @@ export default class App extends Component {
     }
 
     // add items to cart
-    const changeCart = (id, quantity, price) => {
+    const changeCart = (id, quantity, price, obj) => {
       // are duplicate items in cart?
       const isItemInCart = this.state.cart.find(i=>i.id === id);
       // if cart has duplicate item, increase items quantity, else add item 
@@ -97,9 +97,22 @@ export default class App extends Component {
               id: id,
               quantity: quantity,
               price: price,
-              attributes: {}
+              attributes: [obj]
             }]
           });
+      }
+    }
+    // give attributes check value
+    const checking =(index, attr, attrId, productId)=>{
+      const thisCart = this.state.cart.filter(i=>i.id===productId)
+      const attrs = thisCart[0].attributes[0].map(i=>i.attr);
+      const attrIds = thisCart[0].attributes[0].filter(i=>i.attrId === attrId);
+      if (attrIds.length !== 0 && attrIds[0].attr === attr) {
+        return true
+      } else if (attrs.some(i=>i !== attr) && index===0){
+        return true
+      } else if (attrs.length===0 && index===0){
+        return true
       }
     }
     // change id of item in Product
@@ -129,6 +142,7 @@ export default class App extends Component {
           addCart={this.addCart}
           decCart={this.decCart}
           sum={sumTotalPrice}
+          checking={checking}
         />
         
         <Routes>
@@ -153,6 +167,7 @@ export default class App extends Component {
                                             sum={sumTotalPrice}
                                             quantitySum={quantitySum}
                                             symbol={this.state.currencySymbol}
+                                            checking={checking}
                                           />} />
           <Route path="*" element={<NoPage />} />
         </Routes>        

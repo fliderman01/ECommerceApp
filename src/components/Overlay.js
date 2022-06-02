@@ -26,6 +26,8 @@ export default class Overlay extends Component {
               index={index}
               addCart={this.props.addCart}
               decCart={this.props.decCart}
+              cart={this.props.cart}
+              checking={this.props.checking}
             />
         })}
 

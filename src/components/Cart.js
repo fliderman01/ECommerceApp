@@ -27,6 +27,7 @@ export default class Cart extends Component {
                     addCart={this.props.addCart}
                     decCart={this.props.decCart}
                     index={index}
+                    checking={this.props.checking}
                   />
         })}
 

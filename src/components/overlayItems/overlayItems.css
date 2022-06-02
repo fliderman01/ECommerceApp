@@ -1,3 +1,5 @@
+/* DELETE USLESS SELECTORS!!! */
+
 .title::first-letter{
     text-transform: uppercase;
 }
@@ -81,3 +83,14 @@
     cursor: pointer;
     color: #FFFFFF;
 }
+/* selects */
+.radioInpBtn:checked + .radioSizeLabel{
+    background-color: #1D1F22;
+    color: #FFFFFF;
+}
+.radioInpBtn:checked + .radioLabel{
+    border: 2px solid #5ECE7B;
+}
+/* .radioLabel{
+    height: 4px;
+} */

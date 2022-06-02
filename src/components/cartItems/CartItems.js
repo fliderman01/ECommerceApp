@@ -65,7 +65,6 @@ export class CartItems extends Component {
                 {data.product.name}
               </Link>
           </h3>
-          {/* add currencySwitcher here */}
           <p className='cartPrice'>
             {data.product.prices[props.currencySwitcher].currency.symbol}
             {data.product.prices[props.currencySwitcher].amount}
@@ -80,21 +79,31 @@ export class CartItems extends Component {
                     {
                       item.id === 'Color'
                       ?
-                      item.items.map(val=>(
+                      item.items.map((val, index)=>(
                         // <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
                         <li key={val.id}>
+                            <input
+                              className='radioInpBtn'
+                              type='radio'
+                              name={item.name}
+                              checked={props.checking(index, val.value, item.id, props.itemId)}
+                            />
                           <label className='colLabel' style={{backgroundColor: val.value}}>
-                            <input className='radioInpBtn' type='radio' name='color' />
-                            4
+                          4
                           </label>
                         </li>
                       ))
                       :
-                      item.items.map(val=>(
+                      item.items.map((val, index)=>(
                         // <li><button className='sizeBtn'>{val.displayValue}</button></li>
                         <li key={val.id}>
+                            <input
+                              className='radioInpBtn'
+                              type='radio'
+                              name={item.name}
+                              checked={props.checking(index, val.value, item.id, props.itemId)}
+                            />
                           <label className='sizeLabel'>
-                            <input className='radioInpBtn' type='radio' name='attrChoice'/>
                             {val.displayValue}
                           </label>
                         </li>
@@ -138,6 +147,7 @@ export class CartItems extends Component {
       addCart={this.props.addCart}
       decCart={this.props.decCart}
       index={this.props.index}
+      checking={this.props.checking}
     />
   }
 }

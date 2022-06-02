@@ -59,12 +59,20 @@
     cursor: pointer;
 }
 
-.cartColBtn:focus {
-    border: 1px solid #5ECE7B;
+.radioInpBtn:checked + .colLabel{
+    border: 2px solid #5ECE7B;
 }
+/* .cartColBtn:focus {
+    border: 1px solid #5ECE7B;
+} */
 
 .radioInpBtn{
     display: none;
+}
+
+.radioInpBtn:checked + .sizeLabel{
+    background-color: #1D1F22;
+    color: #FFFFFF;
 }
 
 .sizeLabel{
@@ -72,11 +80,11 @@
     margin-right: 9px;
     padding: 9px;
 }
-.sizeLabel:hover{
+/* .sizeLabel:hover{
     cursor: pointer;
     color: #FFFFFF;
     background-color: #1D1F22;
-}
+} */
 
 .colLabel{
     padding: 6px 12px;
@@ -84,9 +92,12 @@
     color: rgba(0, 0, 0, 0);
 }
 
-.colLabel:hover{
+/* .colLabel:hover{
     cursor: pointer;
     border: 1px solid #5ECE7B;
+} */
+#select{
+    color: purple;
 }
 
 .cartAmountBtn {
@@ -125,7 +136,6 @@
 .backFowBtns {
     position:relative;
     bottom: 44px;
-
     margin: 0 0 -28px 128px;
 }
 

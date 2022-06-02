@@ -47,15 +47,6 @@ export default class Product extends Component {
 
     // add attribute options to opts
     const addOpts = (attr, attrId) => {
-      // on first click add default values from select and...
-      let num = 1
-      if (num === 1) {
-        // setOpts([{attr: data.product.attributes.map(i=>i.items[0].value), attrId:data.product.attributes.map(i=>i.id)}])
-        // setOpts([{data.product.attributes.map(i=>attr: i.items[0].value, attrId: i.id)}])
-        num = 0;
-      }
-      // ...then change attributes
-      // if this works delete length 0 condition
       if (opts.length === 0 || opts.every((i)=> attrId !== i.attrId)) {setOpts([...opts, {attr:attr, attrId:attrId}]);}
       if (opts.some((i)=> attrId === i.attrId)) {
         const sameVal = opts.find(i=>i.attrId===attrId);
@@ -120,7 +111,7 @@ export default class Product extends Component {
               <p className='itemPrice'>{data.product.prices[currencySwitcher].currency.symbol}{data.product.prices[currencySwitcher].amount}</p>
               <button className='addBtn'
               onClick={()=>{
-                changeCart(data.product.id, 1, data.product.prices[currencySwitcher].amount)
+                changeCart(data.product.id, 1, data.product.prices[currencySwitcher].amount, opts)
               }}
               >
                 <Link className='routerLink' id='addLink' to="/">
