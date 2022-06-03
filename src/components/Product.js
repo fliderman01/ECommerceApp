@@ -83,7 +83,7 @@ export default class Product extends Component {
                       item.items.map(val=>(
                         // <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
                         <li key={val.value}>
-                          <label className='radioLabel' style={{backgroundColor: val.value}}>
+                          <label className='productRadioLabel' style={{backgroundColor: val.value}}>
                             <input onChange={()=>addOpts(val.value, item.id)} className='colBtn' type='radio' name='color' />4
                           </label>
                         </li>

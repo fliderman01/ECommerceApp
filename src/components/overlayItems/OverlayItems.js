@@ -64,7 +64,7 @@ export class OverlayItems extends Component {
 
                 {data.product.attributes.map(item=>(
                     <>
-                        <p className='productSize'>{item.name.toUpperCase()}:</p>
+                        <p className='productSize'>{item.name}:</p>
                         <ul className='descriptionList'>
                             {
                             item.id === 'Color'
@@ -81,7 +81,7 @@ export class OverlayItems extends Component {
                                   <label
                                     className='radioLabel'
                                     style={{backgroundColor: val.value}}
-                                  >
+                                  >7
                                   </label>
                                 </li>
                             ))
