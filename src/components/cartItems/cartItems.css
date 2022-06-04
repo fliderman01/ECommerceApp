@@ -1,4 +1,4 @@
-.cartProduct > div > h3 {
+.CartItemsTitle {
     font-weight: 400;
     font-size: 30px;
     line-height: 41px;
@@ -6,14 +6,16 @@
     margin-bottom: 16px;
 }
 
-.cartProduct > div > h3::first-line {
+.CartItemsTitle::first-line {
     font-weight: 600;
 }
 
-.cartProduct > div > h3::first-letter {
+.CartItemsTitle::first-letter {
     text-transform: uppercase;
 }
-
+.CartItemsTitle:hover {
+    opacity: .7;
+}
 .cartPrice {
     font-weight: 700;
     font-size: 24px;
@@ -23,11 +25,17 @@
 .sizeCol {
     font-weight: 700;
     font-size: 18px;
-    margin: 14px 0;
+    margin: 20px 0 14px 0;
+}
+
+.cartProduct > div > ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
 }
 
 .cartProduct > div > ul > li {
-    display: inline;
+    margin: 0px 0 29px 0;
 }
 
 .cartSizeBtn {

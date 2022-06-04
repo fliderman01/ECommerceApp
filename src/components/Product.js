@@ -91,7 +91,7 @@ export default class Product extends Component {
                       :
                       item.items.map((val,index)=>(
                         // <li><button className='sizeBtn'>{val.displayValue}</button></li>
-                        <li key={val.value} id='valLi'>
+                        <li key={val.value}>
                           <input
                                 id={val.id + index}
                                 className='colBtn'

@@ -125,7 +125,7 @@ import {
                           onClick={()=>toggleOverlay()}
                           // onMouseLeave={()=>props.hideOverlay()}
                         />
-                        {props.quantitySum() ? <div className='numOfItems'>{props.quantitySum()}</div> : null}
+                        {props.quantitySum() ? <div onClick={()=>toggleOverlay()} className='numOfItems'>{props.quantitySum()}</div> : null}
                       </div>
                 </div>
                 <div className='overlay' style={{display: showOverlay ? 'initial' : 'none'}}></div>

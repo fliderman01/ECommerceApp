@@ -34,6 +34,9 @@ section {
 .categoryTitle{
     margin-top: 29px;
 }
+.categoryTitle:hover{
+    color: #8D8F9A;
+}
 
 .categoryPrice {
     font-weight: 500;

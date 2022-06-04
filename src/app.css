@@ -89,6 +89,7 @@
     position: absolute;
     right: 111px;
     top: 21px;
+    cursor: pointer;
 }
 
 /* overlay */

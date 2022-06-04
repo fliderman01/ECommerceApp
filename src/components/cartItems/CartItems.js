@@ -56,15 +56,15 @@ export class CartItems extends Component {
         <div className='cartProduct'>
 
         <div>
-          <h3>
             <Link
                 onClick={()=>props.changeProductId(props.itemId)}
                 className='routerLink CartItemsLink linkB'
                 to="/product"
-              >
-                {data.product.name}
+                >
+                <p className='CartItemsTitle'>
+                  {data.product.name}
+                </p>
               </Link>
-          </h3>
           <p className='cartPrice'>
             {data.product.prices[props.currencySwitcher].currency.symbol}
             {data.product.prices[props.currencySwitcher].amount}
