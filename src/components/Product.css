@@ -73,6 +73,11 @@
     display: none;
 }
 
+/* #valLi{
+    display: flex;
+    flex-direction: row;
+} */
+
 .productLabel{
     border: 1px solid #1D1F22;
     margin-right: 9px;
@@ -157,3 +162,11 @@
     line-height: 159.96%;
     margin-top: 39px;
 }
+/* selects */
+.colBtn:checked + .productLabel{
+    background-color: #1D1F22;
+    color: #FFFFFF;
+}
+.colBtn:checked + .productRadioLabel {
+    border: 2px solid #5ECE7B;
+} 

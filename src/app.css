@@ -70,6 +70,11 @@
 
 .currencySwitch{
     cursor: pointer;
+    margin-right: 14px;
+}
+
+.arrowImg{
+    margin: 0 0 2px 9px;
 }
 
 .numOfItems{

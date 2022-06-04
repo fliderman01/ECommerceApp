@@ -85,10 +85,12 @@ import {
                   >
                     {data.currencies[props.currencySwitcher].symbol}
                     <img
+                      className='arrowImg'
                       src={vectorUp}
                       alt='arrow up'
                       style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}}
                     />
+                    {/* put this menu outside of currency switch div & see if menu ref works */}
                   <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
                     <ul>
                       {data.currencies.map(({label, symbol}, index)=>(
@@ -119,7 +121,7 @@ import {
                         <img
                           src={Vector}
                           alt='Shopping wheel'
-                          style={{width:'37px'}}
+                          style={{width:'37px', marginTop:'5px'}}
                           onClick={()=>toggleOverlay()}
                           // onMouseLeave={()=>props.hideOverlay()}
                         />

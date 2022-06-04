@@ -14,7 +14,6 @@ main {
 }
 
 section {
-    /* border: 1px solid brown; */
     Width: 386px;
     Height: 444px;
     padding: 16px;
@@ -51,10 +50,11 @@ section {
     left: 290px;
     bottom: 115px;
     cursor: pointer;
+    opacity: 0;
 }
-
-/* make button appear on hover */
-/* section:hover + button {
-    display: block;
-    cursor: pointer;
-} */
+section:hover .cartBtn{
+    opacity: 1;
+}
+#showCategBtn {
+    display: 'initial'
+}

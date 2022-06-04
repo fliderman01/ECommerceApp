@@ -113,6 +113,3 @@
 .radioInpBtn:checked + .radioLabel{
     border: 2px solid #5ECE7B;
 }
-/* .radioLabel{
-    height: 4px;
-} */
