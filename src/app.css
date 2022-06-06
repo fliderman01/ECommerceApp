@@ -70,6 +70,10 @@
 
 .currencySwitch{
     cursor: pointer;
+    background-color: #FFFFFF;
+    border: none;
+}
+.currencySwitch:first-child{
     margin-right: 14px;
 }
 

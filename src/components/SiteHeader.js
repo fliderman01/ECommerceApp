@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import '../app.css';
 import Overlay from './Overlay';
 import svg3 from '../icons/svg3.svg';
@@ -41,25 +41,6 @@ import {
         const toggleOverlay = () => {
           setShowOverlay(!showOverlay);
         }
-        // toggle overlay
-        // const hideOverlay = () => {
-        //   setShowOverlay(false);
-        // }
-        // hide currency siwtcher and overlay on outside click
-        let menuRef = useRef();
-        useEffect(() => {
-          document.addEventListener("mousedown", (event) => {
-            if (!menuRef.current.contains(event.target)) {
-              setShowCurrency(true);
-              // hideOverlay();
-            }
-            document.addEventListener('mousedown', menuRef);
-      
-            return () => {
-              document.removeEventListener('mousedown', menuRef);
-            };
-          });
-        });
   
         // switch / set currency
         const currencyFuncts = (index) => {
@@ -78,10 +59,11 @@ import {
                 </div>
                 <Link to="/"><img src={svg3} alt='Green rectangle with an arrow inside' /></Link>
                 <div className='actions'>
-                  <div
+
+                  <button
                     className='currencySwitch'
                     onClick={()=>setShowCurrency(!showCurrency)}
-                    ref={menuRef}
+                    onBlur={()=>setShowCurrency(true)}
                   >
                     {data.currencies[props.currencySwitcher].symbol}
                     <img
@@ -90,21 +72,23 @@ import {
                       alt='arrow up'
                       style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}}
                     />
-                    {/* put this menu outside of currency switch div & see if menu ref works */}
-                  <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
-                    <ul>
-                      {data.currencies.map(({label, symbol}, index)=>(
-                        <li
-                          key={index}
-                          onClick={()=>{currencyFuncts(index); props.categSymbol(symbol)}}
-                        >
-                          {symbol} {label}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {/* put this menu outside of currency switch button & see if menu ref works */}
+                      </button>
+
+                      <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
+                        <ul>
+                          {data.currencies.map(({label, symbol}, index)=>(
+                            <li
+                              key={index}
+                              onClick={()=>{currencyFuncts(index); props.categSymbol(symbol)}}
+                            >
+                              {symbol} {label}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <div ref={menuRef}>
+
+                      <div>
                         <Overlay
                             currencySwitcher={props.currencySwitcher}
                             changeProductId={props.changeProductId}
@@ -118,13 +102,17 @@ import {
                             quantitySum={props.quantitySum}
                             checking={props.checking}
                         />
-                        <img
-                          src={Vector}
-                          alt='Shopping wheel'
-                          style={{width:'37px', marginTop:'5px'}}
+                        <button
                           onClick={()=>toggleOverlay()}
-                          // onMouseLeave={()=>props.hideOverlay()}
-                        />
+                          onBlur={()=>setShowOverlay(false)}
+                          className='currencySwitch'
+                        >
+                          <img
+                            src={Vector}
+                            alt='Shopping wheel'
+                            style={{width:'37px', marginTop:'5px'}}
+                          />
+                        </button>
                         {props.quantitySum() ? <div onClick={()=>toggleOverlay()} className='numOfItems'>{props.quantitySum()}</div> : null}
                       </div>
                 </div>

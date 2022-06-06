@@ -101,8 +101,9 @@ export class CartItems extends Component {
                               className='radioInpBtn'
                               type='radio'
                               name={item.name}
-                              checked={props.checking(index, val.value, item.id, props.itemId)}
-                            />
+                              // checked={props.checking(index, val.value, item.id, props.itemId)}
+                              checked={props.checking(index, props.attr, props.attrId, props.itemId)}
+                              />
                           <label className='sizeLabel'>
                             {val.displayValue}
                           </label>
@@ -148,6 +149,8 @@ export class CartItems extends Component {
       decCart={this.props.decCart}
       index={this.props.index}
       checking={this.props.checking}
+      attrId={this.props.attrId}
+      attr={this.props.attr}
     />
   }
 }
