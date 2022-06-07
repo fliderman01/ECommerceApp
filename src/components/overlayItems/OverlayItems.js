@@ -61,9 +61,9 @@ export class OverlayItems extends Component {
                   <p onClick={()=>{props.changeProductId(props.itemId); props.toggleOverlay()}} className='productTitle'>{data.product.name}</p>
                 </Link>
                 <p className='priceLabel'>{data.product.prices[props.currencySwitcher].currency.symbol}{data.product.prices[props.currencySwitcher].amount}</p>
-
+                
                 {data.product.attributes.map(item=>(
-                    <>
+                    <div key={item.id}>
                         <p className='productSize'>{item.name}:</p>
                         <ul className='descriptionList'>
                             {
@@ -71,12 +71,13 @@ export class OverlayItems extends Component {
                             ?
                             item.items.map((val, index)=>(
                                 // <li key={val.id} className='descriptionListColor'><button style={{backgroundColor: val.value}}></button></li>
-                                <li key={val.value}>
+                                <li key={index}>
                                   <input
                                     className='radioInpBtn'
                                     type='radio'
                                     name={item.name}
                                     checked={props.checking(index, val.value, item.id, props.itemId)}
+                                    readOnly
                                   />
                                   <label
                                     className='radioLabel'
@@ -88,20 +89,21 @@ export class OverlayItems extends Component {
                             :
                             item.items.map((val, index)=>(
                                 // <li key={val.id} className='descriptionListSize'><button>{val.displayValue}</button></li>
-                                <li key={val.value}>
+                                <li key={index}>
                                   <input
                                     className='radioInpBtn'
                                     type='radio'
                                     name={item.name}
                                     // value={val.displayValue}
                                     checked={props.checking(index, val.value, item.id, props.itemId)}
+                                    readOnly
                                   />
                                   <label className='radioSizeLabel'>{val.value}</label>
                                 </li>
                             ))
                             }
                         </ul>
-                    </>
+                    </div>
                     ))}
               </div>
 
@@ -135,6 +137,7 @@ export class OverlayItems extends Component {
       index={this.props.index}
       cart={this.props.cart}
       checking={this.props.checking}
+
     />
     }
 }

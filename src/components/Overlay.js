@@ -8,16 +8,19 @@ export default class Overlay extends Component {
   render() {
 
     return (
-      <aside style={{display: this.props.showOverlay ? 'initial' : 'none'}}>
+      <aside
+        // style={{display: this.props.showOverlay ? 'initial' : 'none'}}
+        // onClick={()=>this.props.showThisOverlay()}
+      >
         {/* title */}
         <div className='title'>
           <h6>My Bag, <span className='itemNum'>{this.props.quantitySum()} items</span></h6>
         </div>
 
         {/* product description */}
-        {this.props.cart.map((i, index)=>{
-          return <OverlayItems
-              key={i.id}
+        {this.props.cart.map((i, index)=>(
+          <OverlayItems
+              key={index}
               itemId={i.id}
               itemQuantity={i.quantity}
               currencySwitcher={this.props.currencySwitcher}
@@ -29,7 +32,8 @@ export default class Overlay extends Component {
               cart={this.props.cart}
               checking={this.props.checking}
             />
-        })}
+          )
+        )}
 
         {/* bag footer */}
         <div className='bagFooter'>

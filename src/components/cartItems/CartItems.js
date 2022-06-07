@@ -48,7 +48,6 @@ export class CartItems extends Component {
         carousel === 0 && setCarousel(data.product.gallery.length-1)
     }
     
-
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
 
@@ -73,7 +72,7 @@ export class CartItems extends Component {
 
 
           {data.product.attributes.map(item=>(
-              <>
+              <div key={item.id}>
                   <p className='sizeCol'>{item.name.toUpperCase()}:</p>
                   <ul>
                     {
@@ -87,6 +86,7 @@ export class CartItems extends Component {
                               type='radio'
                               name={item.name}
                               checked={props.checking(index, val.value, item.id, props.itemId)}
+                              readOnly
                             />
                           <label className='colLabel' style={{backgroundColor: val.value}}>
                           4
@@ -103,6 +103,7 @@ export class CartItems extends Component {
                               name={item.name}
                               // checked={props.checking(index, val.value, item.id, props.itemId)}
                               checked={props.checking(index, props.attr, props.attrId, props.itemId)}
+                              readOnly
                               />
                           <label className='sizeLabel'>
                             {val.displayValue}
@@ -111,7 +112,7 @@ export class CartItems extends Component {
                       ))
                     }
                   </ul>
-              </>
+              </div>
               ))}
         </div>
 

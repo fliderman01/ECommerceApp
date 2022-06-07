@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useRef, useEffect } from 'react';
 import '../app.css';
 import Overlay from './Overlay';
 import svg3 from '../icons/svg3.svg';
@@ -9,6 +9,26 @@ import {
     useQuery,
     gql,
   } from '@apollo/client';
+
+  let useClickOutside = (handler) => {
+    let domNode = useRef();
+  
+    useEffect(() => {
+      let maybeHandler = (event) => {
+        if (!domNode.current.contains(event.target)) {
+          handler();
+        }
+      };
+  
+      document.addEventListener("mousedown", maybeHandler);
+  
+      return () => {
+        document.removeEventListener("mousedown", maybeHandler);
+      };
+    });
+  
+    return domNode;
+  };
 
   
   export class SiteHeader extends Component {
@@ -41,6 +61,37 @@ import {
         const toggleOverlay = () => {
           setShowOverlay(!showOverlay);
         }
+
+        let domNode = useClickOutside(() => {
+          setShowOverlay(false);
+        });
+        // useEffect(() => {
+        //   document.addEventListener("mousedown", (event) => {
+        //     if (!menuRef.current.contains(event.target)) {
+        //       // setShowCurrency(true);
+        //       toggleOverlay()
+        //       // hideOverlay();
+        //     }
+        //     document.addEventListener('mousedown', menuRef);
+
+        //     return () => {
+        //       document.removeEventListener('mousedown', menuRef);
+        //     };
+        //   });
+        // });
+        // useEffect(()=>{
+        //   document.addEventListener("mousedown", (event)=>{
+        //     if (!menuRef.current.contains(event.target)){
+        //       setShowOverlay(false)
+        //     }
+        //   })
+        // })
+
+        // // show overlay
+        // const showThisOverlay = () => {
+        //   setShowOverlay(true)
+        // }
+        // console.log(showOverlay, 'ahahahahahahahahahahahah')
   
         // switch / set currency
         const currencyFuncts = (index) => {
@@ -73,48 +124,53 @@ import {
                       style={{transform: showCurrency ? '' : 'rotate(180deg)', transitionDuration: '.5s'}}
                     />
                     {/* put this menu outside of currency switch button & see if menu ref works */}
-                      </button>
+                    <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
+                      <ul>
+                        {data.currencies.map(({label, symbol}, index)=>(
+                          <li
+                            key={index}
+                            onClick={()=>{currencyFuncts(index); props.categSymbol(symbol)}}
+                          >
+                            {symbol} {label}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </button>
 
-                      <div className='displCurrency' style={{display: showCurrency ? 'none' : 'initial', transitionDuration: '3s'}}>
-                        <ul>
-                          {data.currencies.map(({label, symbol}, index)=>(
-                            <li
-                              key={index}
-                              onClick={()=>{currencyFuncts(index); props.categSymbol(symbol)}}
-                            >
-                              {symbol} {label}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
 
-                      <div>
-                        <Overlay
-                            currencySwitcher={props.currencySwitcher}
-                            changeProductId={props.changeProductId}
-                            cart={props.cart}
-                            showOverlay={showOverlay}
-                            toggleOverlay={toggleOverlay}
-                            emptyCart={props.emptyCart}
-                            addCart={props.addCart}
-                            decCart={props.decCart}
-                            sum={props.sum}
-                            quantitySum={props.quantitySum}
-                            checking={props.checking}
-                        />
-                        <button
+                      <div
+                        ref={domNode}
+                        className='overlaySwitch'
+                      >
+                        <div
                           onClick={()=>toggleOverlay()}
-                          onBlur={()=>setShowOverlay(false)}
-                          className='currencySwitch'
+                          className='currencySwitchInside'
                         >
                           <img
                             src={Vector}
                             alt='Shopping wheel'
                             style={{width:'37px', marginTop:'5px'}}
                           />
-                        </button>
-                        {props.quantitySum() ? <div onClick={()=>toggleOverlay()} className='numOfItems'>{props.quantitySum()}</div> : null}
+                        </div>
+                          {/* delete show/toggleOverlay at the end */}
+                          {showOverlay && <Overlay
+                              currencySwitcher={props.currencySwitcher}
+                              changeProductId={props.changeProductId}
+                              cart={props.cart}
+                              // showOverlay={showOverlay}
+                              toggleOverlay={toggleOverlay}
+                              emptyCart={props.emptyCart}
+                              addCart={props.addCart}
+                              decCart={props.decCart}
+                              sum={props.sum}
+                              quantitySum={props.quantitySum}
+                              checking={props.checking}
+                              // showThisOverlay={showThisOverlay}
+                          />}
+                        {props.quantitySum() ? <div onClick={()=>setShowOverlay(!showOverlay)} className='numOfItems'>{props.quantitySum()}</div> : null}
                       </div>
+                      
                 </div>
                 <div className='overlay' style={{display: showOverlay ? 'initial' : 'none'}}></div>
               </div>

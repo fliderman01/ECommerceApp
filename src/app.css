@@ -39,7 +39,8 @@
     border: 1px solid purple;
     position: absolute;
     top: 79px;
-    right: 100px;
+    right: 125px;
+    background-color: #FFFFFF;
 }
 
 .displCurrency > ul > li {
@@ -67,16 +68,21 @@
     font-size: 42px;
     color: #1D1F22;
 }
-
-.currencySwitch{
-    cursor: pointer;
-    background-color: #FFFFFF;
+.verlaySwitch{
+    background-color: rgba(0,0,0,0);
     border: none;
+}
+.currencySwitch{
+    background-color: rgba(0,0,0,0);
+    border: none;
+    cursor: pointer;
 }
 .currencySwitch:first-child{
     margin-right: 14px;
 }
-
+.currencySwitchInside{
+    cursor: pointer;
+}
 .arrowImg{
     margin: 0 0 2px 9px;
 }

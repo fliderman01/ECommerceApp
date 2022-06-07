@@ -28,7 +28,7 @@
     margin: 20px 0 14px 0;
 }
 
-.cartProduct > div > ul {
+.cartProduct > div > div > ul {
     display: flex;
     flex-wrap: wrap;
     list-style-type: none;

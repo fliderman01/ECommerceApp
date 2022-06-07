@@ -56,7 +56,7 @@ export default class Product extends Component {
         // console.log(opts, 'vikonsolebi')
       }
     }
-    console.log(opts, 'muskulebi')
+    // console.log(opts, 'muskulebi')
     
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
