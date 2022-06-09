@@ -12,25 +12,21 @@ import {
 
   let useClickOutside = (handler) => {
     let domNode = useRef();
-  
     useEffect(() => {
       let maybeHandler = (event) => {
         if (!domNode.current.contains(event.target)) {
           handler();
         }
       };
-  
       document.addEventListener("mousedown", maybeHandler);
-  
       return () => {
         document.removeEventListener("mousedown", maybeHandler);
       };
     });
-  
+    // console.log('onOutsideClick')
     return domNode;
   };
 
-  
   export class SiteHeader extends Component {
     render() {
       function Header(props) {      
@@ -59,39 +55,13 @@ import {
         const [showOverlay, setShowOverlay] = useState(false);
         // toggle overlay
         const toggleOverlay = () => {
+          // console.log('toggle')
           setShowOverlay(!showOverlay);
         }
 
         let domNode = useClickOutside(() => {
           setShowOverlay(false);
         });
-        // useEffect(() => {
-        //   document.addEventListener("mousedown", (event) => {
-        //     if (!menuRef.current.contains(event.target)) {
-        //       // setShowCurrency(true);
-        //       toggleOverlay()
-        //       // hideOverlay();
-        //     }
-        //     document.addEventListener('mousedown', menuRef);
-
-        //     return () => {
-        //       document.removeEventListener('mousedown', menuRef);
-        //     };
-        //   });
-        // });
-        // useEffect(()=>{
-        //   document.addEventListener("mousedown", (event)=>{
-        //     if (!menuRef.current.contains(event.target)){
-        //       setShowOverlay(false)
-        //     }
-        //   })
-        // })
-
-        // // show overlay
-        // const showThisOverlay = () => {
-        //   setShowOverlay(true)
-        // }
-        // console.log(showOverlay, 'ahahahahahahahahahahahah')
   
         // switch / set currency
         const currencyFuncts = (index) => {
@@ -138,7 +108,6 @@ import {
                     </div>
                   </button>
 
-
                       <div
                         ref={domNode}
                         className='overlaySwitch'
@@ -175,7 +144,6 @@ import {
                 <div className='overlay' style={{display: showOverlay ? 'initial' : 'none'}}></div>
               </div>
       }
-  
       return (
           <>
             {/* delete this.props.currency */}
@@ -197,7 +165,6 @@ import {
                 sum={this.props.sum}
                 checking={this.props.checking}
             />
-            
           </>
       )  
   }

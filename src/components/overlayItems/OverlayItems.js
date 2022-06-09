@@ -107,7 +107,6 @@ export class OverlayItems extends Component {
                     ))}
               </div>
 
-
               <div className='amounts'>
                 <button className='amountBtn' onClick={()=>props.addCart(props.index)}>+</button>
                 <p>{props.itemQuantity}</p>
@@ -137,7 +136,6 @@ export class OverlayItems extends Component {
       index={this.props.index}
       cart={this.props.cart}
       checking={this.props.checking}
-
     />
     }
 }

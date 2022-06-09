@@ -69,8 +69,6 @@ export class CartItems extends Component {
             {data.product.prices[props.currencySwitcher].amount}
           </p>
 
-
-
           {data.product.attributes.map(item=>(
               <div key={item.id}>
                   <p className='sizeCol'>{item.name.toUpperCase()}:</p>

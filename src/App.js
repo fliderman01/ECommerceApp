@@ -86,29 +86,52 @@ export default class App extends Component {
     const changeCart = (id, quantity, price, selectedAttr) => {
       // are duplicate items in cart?
       const isItemInCart = this.state.cart.find(i=>i.id === id);
-      // const sameIds = this.state.cart.filter(i=>i.id === id)
-      // console.log(sameIds[0].attributes[0], 'karta')
+      // const sameIds = this.state.cart.filter(i=>i.id === id);
+      // const sameAttrs = (sameIds.length && sameIds[0].attributes[0]) ? sameIds[0].attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr) : false;
+      // const sameAttrs = (isItemInCart.attributes.length) ? isItemInCart.attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr) : false;
+      
+      // check if cart item and new item have same attributes
+      const sameAttrs = isItemInCart && isItemInCart.attributes.every((i, index)=>i.attrId === selectedAttr[index].attrId && i.attr === selectedAttr[index].attr);
+      // const sameAttrs = sameIds[0].attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr);
+      // console.log(sameAttrs, 'cart')
+      // console.log(isItemInCart && isItemInCart.attributes.some((i, index)=>i.attrId === selectedAttr[index].attrId), 'karta');
+      // console.log(isItemInCart && isItemInCart.attributes.map(i=>i.attrId), 'isItemInCart');
+      // console.log(selectedAttr, 'selected');
+      // console.log(sameAttrs, 'sameAttrs');
       // if cart has duplicate item, increase items quantity, else add item 
-      if (isItemInCart) {
+      if (isItemInCart && sameAttrs) { // && !sameAttrs.length
         this.setState({
           cart: this.state.cart.map(i=>i.id===id?{...i, quantity: i.quantity + 1} : i)
         })
-      }  else {
+      }
+      // here should be 1 if else statement: (!isItemInCart || (isItemInCart && sameAttrs))
+      else if (!isItemInCart ||( isItemInCart && !sameAttrs))  { 
         this.setState({
             cart: [...this.state.cart, {
               id: id,
               quantity: quantity,
               price: price,
-              attributes: [selectedAttr]
+              attributes: selectedAttr
             }]
           });
       }
+      // else // if (isItemInCart && sameAttrs.length || !isItemInCart)
+      // {
+      //   this.setState({
+      //       cart: [...this.state.cart, {
+      //         id: id,
+      //         quantity: quantity,
+      //         price: price,
+      //         attributes: selectedAttr
+      //       }]
+      //     });
+      // }
     }
     // give attributes check value
     const checking =(index, attr, attrId, productId)=>{
       const thisCart = this.state.cart.filter(i=>i.id===productId)
-      const attrs = thisCart[0].attributes[0].map(i=>i.attr);
-      const attrIds = thisCart[0].attributes[0].filter(i=>i.attrId === attrId);
+      const attrs = thisCart[0].attributes.map(i=>i.attr);
+      const attrIds = thisCart[0].attributes.filter(i=>i.attrId === attrId);
       if (attrIds.length !== 0 && attrIds[0].attr === attr) {
         return true
       } else if (attrs.some(i=>i !== attr) && index===0){
