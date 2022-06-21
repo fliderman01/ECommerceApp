@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './Product.css';
 import {
   useQuery,
@@ -8,11 +8,13 @@ import {
 
 export default class Product extends Component {
   render() {
+    function ProductFunct({currencySwitcher, changeCart}) {
+    const { id } = useParams();
     // "huarache-x-stussy-le", "jacket-canada-goosee", "ps-5", "xbox-series-s", "apple-imac-2021", "apple-iphone-12-pro", "apple-airpods-pro", "apple-airtag"
 
     const PRODUCT_INFO = gql`
     query GetRates {
-      product(id: "${this.props.productId}"){
+      product(id: "${id}"){
         id
         name
         gallery
@@ -37,7 +39,6 @@ export default class Product extends Component {
       }
     }
   `;
-  function ProductFunct({currencySwitcher, changeCart}) {
     const { loading, error, data } = useQuery(PRODUCT_INFO);
     // const [attr, setAttr] = useState({})
     const [opts, setOpts] = useState([])
@@ -56,7 +57,7 @@ export default class Product extends Component {
         // console.log(opts, 'vikonsolebi')
       }
     }
-    // console.log(opts, 'muskulebi')
+    // console.log(data.product.id, 'muskulebi')
     
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;

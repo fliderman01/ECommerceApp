@@ -91,13 +91,16 @@ export default class App extends Component {
       // const sameAttrs = (isItemInCart.attributes.length) ? isItemInCart.attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr) : false;
       
       // check if cart item and new item have same attributes
-      const sameAttrs = isItemInCart && isItemInCart.attributes.every((i, index)=>i.attrId === selectedAttr[index].attrId && i.attr === selectedAttr[index].attr);
+      // const sameIds = isItemInCart && isItemInCart.attributes.every((i, index)=>i.attrId === selectedAttr[index].attrId);
+      // const sameAttrs = sameIds && isItemInCart.attributes.every((i, index)=> i.attr === selectedAttr[index].attr);
+      const sameAttrs = (isItemInCart) && isItemInCart.attributes.every((i, index)=>i.attrId === selectedAttr[index].attrId && i.attr === selectedAttr[index].attr);
       // const sameAttrs = sameIds[0].attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr);
-      // console.log(sameAttrs, 'cart')
+      // console.log(isItemInCart, 'cart')
       // console.log(isItemInCart && isItemInCart.attributes.some((i, index)=>i.attrId === selectedAttr[index].attrId), 'karta');
       // console.log(isItemInCart && isItemInCart.attributes.map(i=>i.attrId), 'isItemInCart');
       // console.log(selectedAttr, 'selected');
       // console.log(sameAttrs, 'sameAttrs');
+      
       // if cart has duplicate item, increase items quantity, else add item 
       if (isItemInCart && sameAttrs) { // && !sameAttrs.length
         this.setState({
@@ -105,40 +108,74 @@ export default class App extends Component {
         })
       }
       // here should be 1 if else statement: (!isItemInCart || (isItemInCart && sameAttrs))
-      else if (!isItemInCart ||( isItemInCart && !sameAttrs))  { 
+      else if (!isItemInCart || (isItemInCart && !sameAttrs))  { 
         this.setState({
-            cart: [...this.state.cart, {
-              id: id,
-              quantity: quantity,
-              price: price,
+          cart: [...this.state.cart, {
+            id: id,
+            quantity: quantity,
+            price: price,
               attributes: selectedAttr
             }]
           });
-      }
-      // else // if (isItemInCart && sameAttrs.length || !isItemInCart)
+        }
+        // else // if (isItemInCart && sameAttrs.length || !isItemInCart)
       // {
       //   this.setState({
       //       cart: [...this.state.cart, {
-      //         id: id,
-      //         quantity: quantity,
-      //         price: price,
-      //         attributes: selectedAttr
-      //       }]
-      //     });
-      // }
-    }
-    // give attributes check value
-    const checking =(index, attr, attrId, productId)=>{
-      const thisCart = this.state.cart.filter(i=>i.id===productId)
-      const attrs = thisCart[0].attributes.map(i=>i.attr);
-      const attrIds = thisCart[0].attributes.filter(i=>i.attrId === attrId);
-      if (attrIds.length !== 0 && attrIds[0].attr === attr) {
-        return true
-      } else if (attrs.some(i=>i !== attr) && index===0){
-        return true
-      } else if (attrs.length===0 && index===0){
-        return true
+        //         id: id,
+        //         quantity: quantity,
+        //         price: price,
+        //         attributes: selectedAttr
+        //       }]
+        //     });
+        // }
       }
+    //   const checking =(index, attr, attrId, productId)=>{
+    //     const thisCart = this.state.cart.filter(i=>i.id===productId);
+    //     // const attrs = thisCart[0].attributes.map(i=>i.attr);
+    //     const attrs = thisCart.map(i=>i.attributes.map(j=>j.attr));
+    //     // console.log(attrs, 'attrs');
+    //     // const attrIds = thisCart[0].attributes.filter(i=>i.attrId === attrId);
+    //     // const attrIds = thisCart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
+    //     const attrIds = thisCart.some(i=>i.id === productId) && thisCart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
+    //     console.log(attrIds, 'attrIds')
+    //     // console.log(thisCart, 'this cart', attrs, 'attrs', attrIds, 'attrIds')
+    //     // if (attrIds.length !== 0 && attrIds[0].attr === attr) {
+    //     if (attrIds.length !== 0 && attrIds.some(i=>i.some(j=>j.attr === attr))) {
+    //         return true
+    //     } else if (attrs.some(i=>i !== attr) && index===0){
+    //       return true
+    //     } else if (attrs.length===0 && index===0){
+    //       return true
+    // }
+      // console.log(this.state.cart, 'kaka')
+      // give attributes check value
+      const checking =(index, attr, attrId, productId)=>{
+        const cart = this.state.cart;
+        // const thisCart = this.state.cart.filter(i=>i.id===productId);
+        // const attrs = thisCart[0].attributes.map(i=>i.attr);
+        const attrs = cart.map(i=>i.attributes.map(j=>j.attr));
+        const attrIds = cart.map(i=>i.attributes.map(j=>j.attrId));
+        const productIds = cart.map(i=>i.id);
+        console.log( attrs.map(i=>i), 'attrIds', attrId, 'attrId', productIds, 'productIds')
+        // attrIds.map(i=>console.log(i[0], 'i'));
+        // const attrLength = attrs.length - 1;
+        // console.log(cart.some(i=>i.attribute.some(j=>j.attr === attr)), 'attrs');
+        // const attrIds = thisCart[0].attributes.filter(i=>i.attrId === attrId);
+        // const attrIds = cart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
+        // const attrIds = this.state.cart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
+        // console.log(attrIds, 'attrIds')
+        // console.log(thisCart, 'this cart', attrs, 'attrs', attrIds, 'attrIds')
+        // if (attrIds.length !== 0 && attrIds[0].attr === attr) {
+        if (cart.length !== 0 && attrIds.some(i=>i.some(j=>j===attrId)) && productIds.some(i=>i===productId) && attrs.some(i=>i.some(j=>j===attr))) {
+            return true
+        } else if (attrs.some(i=>i !== attr) && index===0){
+          return true
+        } else if ((attrs.length===0) && index===0){
+          return true
+        } //else if (thisCart.length && attrs.some(i=>i !== attr)) {
+      //   return true
+      // }
     }
     // change id of item in Product
     const changeProductId = (data) => {
@@ -177,7 +214,7 @@ export default class App extends Component {
             changeCart={changeCart}
             changeProductId={changeProductId}
         />} />
-          <Route path="product" element={<Product
+          <Route path="product/:id" element={<Product
                                             currencySwitcher={this.state.currencySwitcher}
                                             productId={this.state.productId}
                                             changeCart={changeCart}

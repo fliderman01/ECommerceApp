@@ -21,6 +21,7 @@ aside {
     font-size: 16px;
     text-align: left;
     margin-left: 3px; /* watch out */
+    z-index: 1;
 }
 /* BAG */
 .bagFooter{

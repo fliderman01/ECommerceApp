@@ -50,15 +50,17 @@ export class OverlayItems extends Component {
     //   }
     // }
     const { loading, error, data } = useQuery(PRODUCT_INFO);
+    // console.log(data.product.name, 'idididi')
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error :( {console.log(error.message)}</p>;
 
     return (
         <div className='productDescript'>
+              {/* {console.log(props.attributes, 'attrs4747')} */}
               <div>
-                <Link to="/product" className='routerLink linkB'>
-                  <p onClick={()=>{props.changeProductId(props.itemId); props.toggleOverlay()}} className='productTitle'>{data.product.name}</p>
+                <Link to={`/product/${props.itemId}`} className='routerLink linkB'>
+                  <p onClick={()=>props.changeProductId(props.itemId)} className='productTitle'>{data.product.name}</p>
                 </Link>
                 <p className='priceLabel'>{data.product.prices[props.currencySwitcher].currency.symbol}{data.product.prices[props.currencySwitcher].amount}</p>
                 
@@ -82,14 +84,14 @@ export class OverlayItems extends Component {
                                   <label
                                     className='radioLabel'
                                     style={{backgroundColor: val.value}}
-                                  >7
+                                    >7
                                   </label>
                                 </li>
                             ))
                             :
                             item.items.map((val, index)=>(
-                                // <li key={val.id} className='descriptionListSize'><button>{val.displayValue}</button></li>
-                                <li key={index}>
+                              // <li key={val.id} className='descriptionListSize'><button>{val.displayValue}</button></li>
+                              <li key={index}>
                                   <input
                                     className='radioInpBtn'
                                     type='radio'
@@ -97,11 +99,12 @@ export class OverlayItems extends Component {
                                     // value={val.displayValue}
                                     checked={props.checking(index, val.value, item.id, props.itemId)}
                                     readOnly
-                                  />
+                                    />
+                                  {/* {console.log(props.attributes[0].attr, val.value, props.attributes[0].attrId, '8888')} */}
                                   <label className='radioSizeLabel'>{val.value}</label>
                                 </li>
                             ))
-                            }
+                          }
                         </ul>
                     </div>
                     ))}
@@ -113,7 +116,7 @@ export class OverlayItems extends Component {
                 <button className='amountBtn' onClick={()=>props.decCart(props.index)}>-</button>
               </div>
               <div>
-                <Link to="/product">
+                <Link to={`/product/${props.itemId}`}>
                   <img
                     src={data.product.gallery[0]}
                     alt='Item'
@@ -136,6 +139,7 @@ export class OverlayItems extends Component {
       index={this.props.index}
       cart={this.props.cart}
       checking={this.props.checking}
+      // attributes={this.props.attributes}
     />
     }
 }

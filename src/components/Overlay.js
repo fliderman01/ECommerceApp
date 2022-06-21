@@ -16,16 +16,17 @@ export default class Overlay extends Component {
         <div className='title'>
           <h6>My Bag, <span className='itemNum'>{this.props.quantitySum()} items</span></h6>
         </div>
-
+        
         {/* product description */}
         {this.props.cart.map((i, index)=>(
           <OverlayItems
               key={index}
               itemId={i.id}
               itemQuantity={i.quantity}
+              // attributes={i.attributes}
               currencySwitcher={this.props.currencySwitcher}
               changeProductId={this.props.changeProductId}
-              toggleOverlay={this.props.toggleOverlay}
+              // toggleOverlay={this.props.toggleOverlay}
               index={index}
               addCart={this.props.addCart}
               decCart={this.props.decCart}

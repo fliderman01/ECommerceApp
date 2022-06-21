@@ -17,6 +17,7 @@
     line-height: 160%;
     cursor: pointer;
     opacity: .7;
+    z-index: 0;
 }
 .productTitle:hover {
     opacity: .5;

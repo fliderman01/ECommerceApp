@@ -44,7 +44,7 @@ export default class category extends Component {
       <div className='categoryContainer'>
           {data.category.products.map(({id, name, inStock, gallery, prices})=>(
             <section key={id}>
-                <Link className='routerLink linkB' to={inStock ? "/product" : "/"}>
+                <Link className='routerLink linkB' to={inStock ? `/product/${id}` : "/"}>
                   <img
                     src={gallery[0]} alt={name}
                     // opacity here causes white border in overlay
@@ -53,7 +53,7 @@ export default class category extends Component {
                   />
                 </Link>
                   <p className='outOfStock' style={{display: inStock ? 'none' : 'initial'}}>OUT OF STOCK</p>
-                <Link className='routerLink linkB' to={inStock ? "/product" : "/"}>
+                <Link className='routerLink linkB' to={inStock ? `/product/${id}` : "/"}>
                   <p onClick={()=>props.changeProductId(id)} style={{opacity: inStock ? '1' : '.5'}} className='categoryTitle'>{name}</p>
                 </Link>
                 <p style={{opacity: inStock ? '1' : '.5'}} className='categoryPrice'>{prices[props.currencySwitcher].currency.symbol}{prices[props.currencySwitcher].amount}</p>

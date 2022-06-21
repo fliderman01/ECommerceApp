@@ -58,7 +58,7 @@ export class CartItems extends Component {
             <Link
                 onClick={()=>props.changeProductId(props.itemId)}
                 className='routerLink CartItemsLink linkB'
-                to="/product"
+                to={`/product/${props.itemId}`}
                 >
                 <p className='CartItemsTitle'>
                   {data.product.name}
@@ -121,7 +121,7 @@ export class CartItems extends Component {
             <button className='cartAmountBtn' onClick={()=>props.decCart(props.index)}>-</button>
           </div>
           <div className='imgBtns'>
-            <Link to="/product">
+            <Link to={`/product/${props.itemId}`}>
               <img 
                 src={data.product.gallery[carousel]} 
                 alt='Item'
