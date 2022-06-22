@@ -86,21 +86,7 @@ export default class App extends Component {
     const changeCart = (id, quantity, price, selectedAttr) => {
       // are duplicate items in cart?
       const isItemInCart = this.state.cart.find(i=>i.id === id);
-      // const sameIds = this.state.cart.filter(i=>i.id === id);
-      // const sameAttrs = (sameIds.length && sameIds[0].attributes[0]) ? sameIds[0].attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr) : false;
-      // const sameAttrs = (isItemInCart.attributes.length) ? isItemInCart.attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr) : false;
-      
-      // check if cart item and new item have same attributes
-      // const sameIds = isItemInCart && isItemInCart.attributes.every((i, index)=>i.attrId === selectedAttr[index].attrId);
-      // const sameAttrs = sameIds && isItemInCart.attributes.every((i, index)=> i.attr === selectedAttr[index].attr);
-      const sameAttrs = (isItemInCart) && isItemInCart.attributes.every((i, index)=>i.attrId === selectedAttr[index].attrId && i.attr === selectedAttr[index].attr);
-      // const sameAttrs = sameIds[0].attributes.some((i)=>i.attrId === selectedAttr[0].attrId && i.attr === selectedAttr[0].attr);
-      // console.log(isItemInCart, 'cart')
-      // console.log(isItemInCart && isItemInCart.attributes.some((i, index)=>i.attrId === selectedAttr[index].attrId), 'karta');
-      // console.log(isItemInCart && isItemInCart.attributes.map(i=>i.attrId), 'isItemInCart');
-      // console.log(selectedAttr, 'selected');
-      // console.log(sameAttrs, 'sameAttrs');
-      
+      const sameAttrs = (isItemInCart) && isItemInCart.attributes.every((i, index)=>i.attrId === selectedAttr[index].attrId && i.attr === selectedAttr[index].attr);      
       // if cart has duplicate item, increase items quantity, else add item 
       if (isItemInCart && sameAttrs) { // && !sameAttrs.length
         this.setState({
@@ -150,25 +136,21 @@ export default class App extends Component {
     // }
       // console.log(this.state.cart, 'kaka')
       // give attributes check value
-      const checking =(index, attr, attrId, productId)=>{
+      const checking =(index, attr, attrId, productId) => {
         const cart = this.state.cart;
         // const thisCart = this.state.cart.filter(i=>i.id===productId);
         // const attrs = thisCart[0].attributes.map(i=>i.attr);
         const attrs = cart.map(i=>i.attributes.map(j=>j.attr));
+        const attrArr = attrs.map(i=>i[0]);
         const attrIds = cart.map(i=>i.attributes.map(j=>j.attrId));
+        const attrIdsArr = attrIds.map(i=>i[0]);
         const productIds = cart.map(i=>i.id);
-        console.log( attrs.map(i=>i), 'attrIds', attrId, 'attrId', productIds, 'productIds')
-        // attrIds.map(i=>console.log(i[0], 'i'));
-        // const attrLength = attrs.length - 1;
-        // console.log(cart.some(i=>i.attribute.some(j=>j.attr === attr)), 'attrs');
-        // const attrIds = thisCart[0].attributes.filter(i=>i.attrId === attrId);
-        // const attrIds = cart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
-        // const attrIds = this.state.cart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
-        // console.log(attrIds, 'attrIds')
-        // console.log(thisCart, 'this cart', attrs, 'attrs', attrIds, 'attrIds')
-        // if (attrIds.length !== 0 && attrIds[0].attr === attr) {
-        if (cart.length !== 0 && attrIds.some(i=>i.some(j=>j===attrId)) && productIds.some(i=>i===productId) && attrs.some(i=>i.some(j=>j===attr))) {
-            return true
+        const productIdsArr = productIds.map(i=>i);
+        console.log(cart.length !== 0, 'num', attrArr.includes(attr), 'attrs', attrIdsArr.includes(attrId), 'attrId', productIdsArr.includes(productId), 'productIds')
+        // if (cart.length !== 0 && attrIds.some(i=>i.some(j=>j===attrId)) && productIds.some(i=>i===productId) && attrs.some(i=>i.some(j=>j===attr))) {
+        // if (cart.length !== 0 && attrIdsArr.some(i=>i===attrId) && productIdsArr.some(i=>i===productId) && attrArr.some(i=>i===attr)) {
+        if (cart.length !== 0 && attrIdsArr.includes(attrId) && productIdsArr.includes(productId) && attrArr.includes(attr)) {
+          return true
         } else if (attrs.some(i=>i !== attr) && index===0){
           return true
         } else if ((attrs.length===0) && index===0){

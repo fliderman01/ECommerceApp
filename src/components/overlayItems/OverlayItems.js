@@ -90,7 +90,11 @@ export class OverlayItems extends Component {
                             ))
                             :
                             item.items.map((val, index)=>(
-                              // <li key={val.id} className='descriptionListSize'><button>{val.displayValue}</button></li>
+                              // classname for select descriptionListSizeDark
+                              // <>
+                              // {console.log(props.cart.map(i=>i.attributes.map(j=>j.attr)), 'chekk')}
+                              // <li key={val.id} className={'descriptionListSize'}><button>{val.displayValue}</button></li>
+                              // </>
                               <li key={index}>
                                   <input
                                     className='radioInpBtn'

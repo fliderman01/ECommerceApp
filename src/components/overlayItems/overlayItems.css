@@ -81,10 +81,16 @@
     color: #A6A6A6;
 }
 
-.descriptionListSize > button:hover {
+/* .descriptionListSize > button:hover {
     background-color: #1D1F22;
     color: #FFFFFF;
     cursor: pointer;;
+} */
+
+.descriptionListSizeBlack {
+    background-color: #1D1F22;
+    color: #FFFFFF;
+    /* cursor: pointer;; */
 }
 
 .descriptionListColor > button {
