@@ -21,6 +21,7 @@ export default class Overlay extends Component {
         {this.props.cart.map((i, index)=>(
           <OverlayItems
               key={index}
+              OIndex={index}
               itemId={i.id}
               itemQuantity={i.quantity}
               // attributes={i.attributes}

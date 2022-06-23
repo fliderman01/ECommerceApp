@@ -74,12 +74,12 @@ export default class Product extends Component {
             </div>
             <div className='productDescription'>
               <p className='descrTitle'>{data.product.name}</p>
-              {data.product.attributes.map(item=>(
+              {data.product.attributes.map((item, itemIndex)=>(
                 <div className='productDescription' key={item.name}>
                   <p className='colSize'>{item.name.toUpperCase()}:</p>
                   <ul>
                     {
-                      item.id === 'Color'
+                      item.type === 'swatch'
                       ?
                       item.items.map((val,index)=>(
                         // <li><button className='colBtn' style={{backgroundColor: val.value}}></button></li>
@@ -100,6 +100,7 @@ export default class Product extends Component {
                                 name='attrChoice'
                                 onChange={()=>addOpts(val.value, item.id)}
                           />
+                          {console.log(val.id + itemIndex, 'indexa')}
                           <label htmlFor={val.id + index} className='productLabel'>
                             {val.displayValue}
                           </label>

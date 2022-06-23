@@ -78,7 +78,7 @@ export class OverlayItems extends Component {
                                     className='radioInpBtn'
                                     type='radio'
                                     name={item.name}
-                                    checked={props.checking(index, val.value, item.id, props.itemId)}
+                                    checked={props.checking(index, val.value, item.id, props.itemId, props.OIndex)}
                                     readOnly
                                   />
                                   <label
@@ -101,7 +101,7 @@ export class OverlayItems extends Component {
                                     type='radio'
                                     name={item.name}
                                     // value={val.displayValue}
-                                    checked={props.checking(index, val.value, item.id, props.itemId)}
+                                    checked={props.checking(index, val.value, item.id, props.itemId, props.OIndex)}
                                     readOnly
                                     />
                                   {/* {console.log(props.attributes[0].attr, val.value, props.attributes[0].attrId, '8888')} */}
@@ -143,6 +143,7 @@ export class OverlayItems extends Component {
       index={this.props.index}
       cart={this.props.cart}
       checking={this.props.checking}
+      OIndex={this.props.OIndex}
       // attributes={this.props.attributes}
     />
     }

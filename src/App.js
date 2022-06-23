@@ -97,59 +97,36 @@ export default class App extends Component {
       else if (!isItemInCart || (isItemInCart && !sameAttrs))  { 
         this.setState({
           cart: [...this.state.cart, {
+            // indexId: this.state.cart.length,
+            indexId: id + selectedAttr[0].attr,
             id: id,
             quantity: quantity,
             price: price,
-              attributes: selectedAttr
+            attributes: selectedAttr
             }]
           });
         }
-        // else // if (isItemInCart && sameAttrs.length || !isItemInCart)
-      // {
-      //   this.setState({
-      //       cart: [...this.state.cart, {
-        //         id: id,
-        //         quantity: quantity,
-        //         price: price,
-        //         attributes: selectedAttr
-        //       }]
-        //     });
-        // }
       }
-    //   const checking =(index, attr, attrId, productId)=>{
-    //     const thisCart = this.state.cart.filter(i=>i.id===productId);
-    //     // const attrs = thisCart[0].attributes.map(i=>i.attr);
-    //     const attrs = thisCart.map(i=>i.attributes.map(j=>j.attr));
-    //     // console.log(attrs, 'attrs');
-    //     // const attrIds = thisCart[0].attributes.filter(i=>i.attrId === attrId);
-    //     // const attrIds = thisCart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
-    //     const attrIds = thisCart.some(i=>i.id === productId) && thisCart.map(i=>i.attributes.filter(j=>j.attrId === attrId));
-    //     console.log(attrIds, 'attrIds')
-    //     // console.log(thisCart, 'this cart', attrs, 'attrs', attrIds, 'attrIds')
-    //     // if (attrIds.length !== 0 && attrIds[0].attr === attr) {
-    //     if (attrIds.length !== 0 && attrIds.some(i=>i.some(j=>j.attr === attr))) {
-    //         return true
-    //     } else if (attrs.some(i=>i !== attr) && index===0){
-    //       return true
-    //     } else if (attrs.length===0 && index===0){
-    //       return true
-    // }
       // console.log(this.state.cart, 'kaka')
       // give attributes check value
-      const checking =(index, attr, attrId, productId) => {
+      const checking =(index, attr, attrId, productId, overlayInd) => {
         const cart = this.state.cart;
         // const thisCart = this.state.cart.filter(i=>i.id===productId);
         // const attrs = thisCart[0].attributes.map(i=>i.attr);
         const attrs = cart.map(i=>i.attributes.map(j=>j.attr));
         const attrArr = attrs.map(i=>i[0]);
+        const attrsIndex = cart.map(i=>i.indexId);
+        // const attrIndexArr = attrsIndex.map(i=>i[0]);
         const attrIds = cart.map(i=>i.attributes.map(j=>j.attrId));
         const attrIdsArr = attrIds.map(i=>i[0]);
         const productIds = cart.map(i=>i.id);
         const productIdsArr = productIds.map(i=>i);
-        console.log(cart.length !== 0, 'num', attrArr.includes(attr), 'attrs', attrIdsArr.includes(attrId), 'attrId', productIdsArr.includes(productId), 'productIds')
+        // console.log(overlayInd, attrArr[overlayInd].includes(attr), 'attrs', attrIdsArr[overlayInd].includes(attrId), 'attrId', productIdsArr[overlayInd].includes(productId), 'productIds', attrsIndex[overlayInd].includes(productId + attr), 'indexId')
+        // console.log(overlayInd, attrArr[overlayInd], 'attrs', attrIdsArr[overlayInd], 'attrId', productIdsArr[overlayInd], 'productIds', attrsIndex[overlayInd], 'arrIndex')
+        // console.log(attrsIndex, attrsIndex.includes(productId + attr), 'attrsIndex', productId + attr)
         // if (cart.length !== 0 && attrIds.some(i=>i.some(j=>j===attrId)) && productIds.some(i=>i===productId) && attrs.some(i=>i.some(j=>j===attr))) {
         // if (cart.length !== 0 && attrIdsArr.some(i=>i===attrId) && productIdsArr.some(i=>i===productId) && attrArr.some(i=>i===attr)) {
-        if (cart.length !== 0 && attrIdsArr.includes(attrId) && productIdsArr.includes(productId) && attrArr.includes(attr)) {
+        if (cart.length !== 0 && attrIdsArr[overlayInd].includes(attrId) && productIdsArr[overlayInd].includes(productId) && attrArr[overlayInd].includes(attr) && attrsIndex[overlayInd].includes(productId + attr)) {
           return true
         } else if (attrs.some(i=>i !== attr) && index===0){
           return true
